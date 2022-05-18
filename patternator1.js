@@ -264,7 +264,7 @@ const cssRepeat = document.getElementById("cssRepeat")
  cssRepeat.onclick = function generatePatternRepeat() {
   smallContainer.setAttributeNS(null, "viewBox", "0 0 " + spacing.value + " " + spacing.value);
 
-  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + fontSize.value + "px;";
+  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + spacing.value + "px;";
 
   navigator.clipboard.writeText(cssReady)
     .then(()=>{
