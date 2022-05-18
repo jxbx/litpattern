@@ -260,7 +260,21 @@ function downloadSVG() {
   setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
 }
 
+const cssRepeat = document.getElementById("cssRepeat")
+ cssRepeat.onclick = function generatePatternRepeat() {
+  smallContainer.setAttributeNS(null, "viewBox", "0 0 " + spacing.value + " " + spacing.value);
 
+  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + fontSize.value + "px;";
+
+  navigator.clipboard.writeText(cssReady)
+    .then(()=>{
+      alert("URL copied to clipboard");
+    })
+    .catch(()=>{
+      alert("error");
+    })
+  smallContainer.setAttributeNS(null, "viewBox", "0 0 600 600");
+}
 
 
 
