@@ -36,11 +36,10 @@ body{
 .grid-item {
   font-family: 'Raleway', sans-serif;
   font-size: 35pt;
-  font-weight: 300;
+  font-weight: 700;
   align-items: center;
   justify-content: center;
   display: flex;
-  text-shadow: none;
 }
 
 .controls {
