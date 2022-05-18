@@ -2,6 +2,7 @@ const smallContainer = document.getElementById("smallContainer");
 const bigContainer = document.getElementById("bigContainer");
 const gridItems = document.getElementsByClassName("item");
 const box = document.getElementById("box");
+const alternating = document.getElementById("alternating");
 
 let coordinates = [];
 
@@ -52,7 +53,6 @@ function render() {
   for (const item of gridItems){
     dropShadow.value <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow("+dropShadow.value+"px 0 " +picker2.color.rgbaString+")";
     item.style.fontFamily = "\"Raleway\", sans-serif";
-    item.style.transform = "rotate("+angle.value+"deg)";
     item.style.fontSize = fontSize.value + "px";
     item.style.fontWeight = fontWeight.value;
     item.style.fill = picker1.color.rgbaString;
@@ -60,6 +60,14 @@ function render() {
     item.style.transformOrigin = "center";
     item.style.textAnchor = "middle";
     item.style.dominantBaseline = "middle";
+  }
+  for (let i=0; i<81; i++){
+    if (alternating.checked && i%2 === 0){
+      gridItems[i].style.transform = null;
+    }
+    else {
+      gridItems[i].style.transform = "rotate("+angle.value+"deg)"
+    }
   }
 }
 
@@ -165,6 +173,7 @@ randomiseParameters.onclick = function() {
   spacing.dispatchEvent(new Event('input'));
   characterInput.value = String.fromCharCode(Math.round(Math.random()*93)+33);
   characterInput.dispatchEvent(new Event('input'));
+  alternating.checked = (Math.random() < 0.5) ? false : true;
 
   render();
 }
@@ -262,13 +271,17 @@ function downloadSVG() {
 
 const cssRepeat = document.getElementById("cssRepeat")
  cssRepeat.onclick = function generatePatternRepeat() {
-  smallContainer.setAttributeNS(null, "viewBox", "0 0 " + spacing.value + " " + spacing.value);
 
-  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + spacing.value + "px;";
+  let newSpacing = (alternating.checked) ? 2*spacing.value : spacing.value;
+
+  smallContainer.setAttributeNS(null, "viewBox", "0 0 " + newSpacing + " " + newSpacing);
+
+
+  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + newSpacing + "px;";
 
   navigator.clipboard.writeText(cssReady)
     .then(()=>{
-      alert("URL copied to clipboard");
+      alert("CSS copied to clipboard");
     })
     .catch(()=>{
       alert("error");
@@ -281,4 +294,5 @@ const cssRepeat = document.getElementById("cssRepeat")
 
 window.addEventListener("load", render);
 window.addEventListener("load", loadState);
+alternating.addEventListener("change", render);
 downloadSVGButton.addEventListener("click", downloadSVG);
