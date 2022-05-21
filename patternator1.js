@@ -11,20 +11,20 @@ let state = {
   fontWeight: null,
   fontSize: null,
   dropShadow: null,
-  spacing: null,
+  zoom: null,
   angle: null,
   colour0: null,
   colour1: null,
   colour2: null,
 }
 
-function generateCoordinates(space) {
-  let min = -4*space+300
-  for (let y=0; y<9; y++){
-    for (let x=0; x<9; x++){
+function generateCoordinates() {
+  let min = -150;
+  for (let y=0; y<3; y++){
+    for (let x=0; x<3; x++){
       let item = [];
-      item.push(min+space*x);
-      item.push(min+space*y);
+      item.push(min + 150*x);
+      item.push(min + 150*y);
       coordinates.push(item);
     }
   }
@@ -37,10 +37,10 @@ function render() {
   }
 
   coordinates = [];
-  generateCoordinates(spacing.value);
+  generateCoordinates();
 
 
-  for (let i=0; i<81; i++){
+  for (let i=0; i<9; i++){
     const shape = document.createElementNS('http://www.w3.org/2000/svg',"text");
     shape.setAttributeNS(null, "id", "item"+i);
     shape.setAttributeNS(null, "x", coordinates[i][0]);
@@ -61,14 +61,25 @@ function render() {
     item.style.textAnchor = "middle";
     item.style.dominantBaseline = "middle";
   }
-  for (let i=0; i<81; i++){
+  for (let i=0; i<9; i++){
     if (alternating.checked && i%2 === 0){
       gridItems[i].style.transform = null;
     }
     else {
-      gridItems[i].style.transform = "rotate("+angle.value+"deg)"
+      gridItems[i].style.transform = "rotate("+angle.value+"deg)";
     }
   }
+
+//  let newSpacing = (alternating.checked) ? 300 : 150
+
+let newSpacing = 300;
+
+smallContainer.setAttributeNS(null, "viewBox", -0.5*newSpacing + " " + -0.5*newSpacing + " " + newSpacing + " " + newSpacing);
+
+  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + zoom.value + "px;";
+
+ document.body.setAttributeNS(null, "style", cssReady);
+
 }
 
 const angle = document.getElementById("angle");
@@ -104,13 +115,15 @@ fontWeight.oninput = function adjustFontWeight() {
   fontWeightValue.innerHTML = this.value;
 }
 
-const spacing = document.getElementById("spacing");
-const spacingValue = document.getElementById("spacingValue");
-spacing.addEventListener("input", render);
+const zoom = document.getElementById("zoom");
+const zoomValue = document.getElementById("zoomValue");
+zoom.addEventListener("input", render);
 
-spacing.oninput = function adjustSpacing() {
-  spacingValue.innerHTML = this.value;
+zoom.oninput = function adjustZoom() {
+  zoomValue.innerHTML = this.value;
 }
+
+
 
 const characterInput = document.getElementById("characterInput");
 characterInput.addEventListener("input", render);
@@ -169,8 +182,8 @@ randomiseParameters.onclick = function() {
   fontSize.dispatchEvent(new Event('input'));
   fontWeight.value = Math.random()*800 + 100;
   fontWeight.dispatchEvent(new Event('input'));
-  spacing.value = Math.random()*225 + 75;
-  spacing.dispatchEvent(new Event('input'));
+  zoom.value = Math.random()*480 + 20;
+  zoom.dispatchEvent(new Event('input'));
   characterInput.value = String.fromCharCode(Math.round(Math.random()*93)+33);
   characterInput.dispatchEvent(new Event('input'));
   alternating.checked = (Math.random() < 0.5) ? false : true;
@@ -195,6 +208,8 @@ randomiseColours.onclick = function() {
   picker0.setColour(newColour());
   picker1.setColour(newColour());
   picker2.setColour(newColour());
+
+  render();
 }
 
 const randomiseEverything = document.getElementById("randomiseEverything");
@@ -269,25 +284,10 @@ function downloadSVG() {
   setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
 }
 
-const cssRepeat = document.getElementById("cssRepeat")
- cssRepeat.onclick = function generatePatternRepeat() {
-
-  let newSpacing = (alternating.checked) ? 2*spacing.value : spacing.value;
-
-  smallContainer.setAttributeNS(null, "viewBox", "0 0 " + newSpacing + " " + newSpacing);
+// const cssRepeat = document.getElementById("cssRepeat")
+//  cssRepeat.onclick = function generatePatternRepeat() {
 
 
-  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + newSpacing + "px;";
-
-  navigator.clipboard.writeText(cssReady)
-    .then(()=>{
-      alert("CSS copied to clipboard");
-    })
-    .catch(()=>{
-      alert("error");
-    })
-  smallContainer.setAttributeNS(null, "viewBox", "0 0 600 600");
-}
 
 
 

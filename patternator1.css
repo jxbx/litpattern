@@ -8,6 +8,7 @@ body{
 #bigContainer {
   height: 600px;
   width: 600px;
+  display: none;
 }
 
 
@@ -26,6 +27,7 @@ section {
   padding: 10px 0 0 0;
   width: 600px;
   justify-content: space-between;
+  background-color: white;
 }
 
 .colourSelectContainer {
