@@ -13,6 +13,7 @@ let state = {
   dropShadow: null,
   zoom: null,
   angle: null,
+  alternating: null,
   colour0: null,
   colour1: null,
   colour2: null,
@@ -30,106 +31,28 @@ function generateCoordinates() {
   }
 }
 
-function render() {
-
-  while (smallContainer.hasChildNodes()) {
-    smallContainer.removeChild(smallContainer.firstChild);
-  }
-
-  coordinates = [];
-  generateCoordinates();
-
-
-  for (let i=0; i<9; i++){
-    const shape = document.createElementNS('http://www.w3.org/2000/svg',"text");
-    shape.setAttributeNS(null, "id", "item"+i);
-    shape.setAttributeNS(null, "x", coordinates[i][0]);
-    shape.setAttributeNS(null, "y", coordinates[i][1]);
-    shape.setAttributeNS(null, "class", "item");
-    const text  = document.createTextNode(characterInput.value);
-    shape.appendChild(text);
-    smallContainer.appendChild(shape);
-  }
-  for (const item of gridItems){
-    dropShadow.value <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow("+dropShadow.value+"px 0 " +picker2.color.rgbaString+")";
-    item.style.fontFamily = "\"Raleway\", sans-serif";
-    item.style.fontSize = fontSize.value + "px";
-    item.style.fontWeight = fontWeight.value;
-    item.style.fill = picker1.color.rgbaString;
-    item.style.transformBox = "fill-box";
-    item.style.transformOrigin = "center";
-    item.style.textAnchor = "middle";
-    item.style.dominantBaseline = "middle";
-  }
-  for (let i=0; i<9; i++){
-    if (alternating.checked && i%2 === 0){
-      gridItems[i].style.transform = null;
-    }
-    else {
-      gridItems[i].style.transform = "rotate("+angle.value+"deg)";
-    }
-  }
-
-//  let newSpacing = (alternating.checked) ? 300 : 150
-
-let newSpacing = 300;
-
-smallContainer.setAttributeNS(null, "viewBox", -0.5*newSpacing + " " + -0.5*newSpacing + " " + newSpacing + " " + newSpacing);
-
-  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + zoom.value + "px;";
-
- document.body.setAttributeNS(null, "style", cssReady);
-
-}
-
 const angle = document.getElementById("angle");
 const angleValue = document.getElementById("angleValue");
 angle.addEventListener("input", render);
-
-angle.oninput = function adjustAngle() {
-  angleValue.innerHTML = this.value;
-}
 
 const dropShadow = document.getElementById("dropShadow");
 const dropShadowValue = document.getElementById("dropShadowValue");
 dropShadow.addEventListener("input", render);
 
-dropShadow.oninput = function adjustDropShadow() {
-  dropShadowValue.innerHTML = this.value;
-}
-
-
 const fontSize = document.getElementById("fontSize");
 const fontSizeValue = document.getElementById("fontSizeValue");
 fontSize.addEventListener("input", render);
-
-fontSize.oninput = function adjustFontSize() {
-  fontSizeValue.innerHTML = this.value;
-}
 
 const fontWeight = document.getElementById("fontWeight");
 const fontWeightValue = document.getElementById("fontWeightValue");
 fontWeight.addEventListener("input", render);
 
-fontWeight.oninput = function adjustFontWeight() {
-  fontWeightValue.innerHTML = this.value;
-}
-
 const zoom = document.getElementById("zoom");
 const zoomValue = document.getElementById("zoomValue");
 zoom.addEventListener("input", render);
 
-zoom.oninput = function adjustZoom() {
-  zoomValue.innerHTML = this.value;
-}
-
-
-
 const characterInput = document.getElementById("characterInput");
 characterInput.addEventListener("input", render);
-
-characterInput.oninput = function adjustCharacter() {
-}
 
 const parent0 = document.getElementById('parent0');
 const background = document.getElementById('wrapper');
@@ -171,21 +94,76 @@ const picker1 = new Picker({
       }
     });
 
+function render() {
+
+  while (smallContainer.hasChildNodes()) {
+    smallContainer.removeChild(smallContainer.firstChild);
+  }
+
+  coordinates = [];
+  generateCoordinates();
+
+
+  for (let i=0; i<9; i++){
+    const shape = document.createElementNS('http://www.w3.org/2000/svg',"text");
+    shape.setAttributeNS(null, "id", "item"+i);
+    shape.setAttributeNS(null, "x", coordinates[i][0]);
+    shape.setAttributeNS(null, "y", coordinates[i][1]);
+    shape.setAttributeNS(null, "class", "item");
+    const text  = document.createTextNode(characterInput.value);
+    shape.appendChild(text);
+    smallContainer.appendChild(shape);
+  }
+
+  dropShadowValue.innerHTML = dropShadow.value;
+  fontSizeValue.innerHTML = fontSize.value;
+  fontWeightValue.innerHTML = fontWeight.value;
+  zoomValue.innerHTML = zoom.value;
+  angleValue.innerHTML = angle.value;
+
+  for (const item of gridItems){
+    dropShadow.value <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow("+dropShadow.value+"px 0 " +picker2.color.rgbaString+")";
+    item.style.fontFamily = "\"Raleway\", sans-serif";
+    item.style.fontSize = fontSize.value + "px";
+    item.style.fontWeight = fontWeight.value;
+    item.style.fill = picker1.color.rgbaString;
+    item.style.transformBox = "fill-box";
+    item.style.transformOrigin = "center";
+    item.style.textAnchor = "middle";
+    item.style.dominantBaseline = "middle";
+  }
+  for (let i=0; i<9; i++){
+    if (alternating.checked && i%2 === 0){
+      gridItems[i].style.transform = null;
+    }
+    else {
+      gridItems[i].style.transform = "rotate("+angle.value+"deg)";
+    }
+  }
+
+//  let newSpacing = (alternating.checked) ? 300 : 150
+
+let newSpacing = 300;
+
+smallContainer.setAttributeNS(null, "viewBox", -0.5*newSpacing + " " + -0.5*newSpacing + " " + newSpacing + " " + newSpacing);
+
+  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + zoom.value + "px;";
+
+ document.body.setAttributeNS(null, "style", cssReady);
+
+}
+
+
+
 const randomiseParameters = document.getElementById("randomiseParameters");
 
 randomiseParameters.onclick = function() {
   dropShadow.value = Math.random()*100;
-  dropShadow.dispatchEvent(new Event('input'));
   angle.value = Math.random()*360;
-  angle.dispatchEvent(new Event('input'));
   fontSize.value = Math.random()*300 + 50;
-  fontSize.dispatchEvent(new Event('input'));
   fontWeight.value = Math.random()*800 + 100;
-  fontWeight.dispatchEvent(new Event('input'));
   zoom.value = Math.random()*480 + 20;
-  zoom.dispatchEvent(new Event('input'));
   characterInput.value = String.fromCharCode(Math.round(Math.random()*93)+33);
-  characterInput.dispatchEvent(new Event('input'));
   alternating.checked = (Math.random() < 0.5) ? false : true;
 
   render();
@@ -226,7 +204,8 @@ shareButton.onclick = function setState() {
   state.dropShadow = dropShadow.value;
   state.fontSize = fontSize.value;
   state.fontWeight = fontWeight.value;
-  state.spacing = spacing.value;
+  state.zoom = zoom.value;
+  state.alternating = alternating.checked;
   state.colour0 = picker0.color.rgbaString;
   state.colour1 = picker1.color.rgbaString;
   state.colour2 = picker2.color.rgbaString;
@@ -259,12 +238,16 @@ function loadState() {
     fontSize.dispatchEvent(new Event('input'));
     fontWeight.value = state.fontWeight;
     fontWeight.dispatchEvent(new Event('input'));
-    spacing.value = state.spacing;
-    spacing.dispatchEvent(new Event('input'));
+    zoom.value = state.spacing;
+    zoom.dispatchEvent(new Event('input'));
+    alternating.checked = state.alternating;
+    alternating.dispatchEvent(new Event('change'));
 
     picker0.setColour(state.colour0);
     picker1.setColour(state.colour1);
     picker2.setColour(state.colour2);
+
+    render();
   }
 }
 
