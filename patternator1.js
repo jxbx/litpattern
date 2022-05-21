@@ -105,7 +105,7 @@ function generateCss() {
 
   smallContainer.setAttributeNS(null, "viewBox", -0.5*spacing + " " + -0.5*spacing + " " + spacing + " " + spacing);
 
-  let cssReady = "background-image: url(\'data:image/svg+xml;utf8," + smallContainer.outerHTML + "\'); background-size: " + zoom.value + "px;";
+  let cssReady = "background-image: url(\'data:image/svg+xml;base64," + btoa(smallContainer.outerHTML) + "\'); background-size: " + zoom.value + "px;";
 
   return cssReady;
 }
