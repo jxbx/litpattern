@@ -16,16 +16,9 @@ section {
   padding: 20px 0 0 0;
 }
 
-.controlPanel {
-  display: flex;
-  width: 600px;
-  justify-content: space-between;
-}
-
 .controls {
   display: flex;
   padding: 10px 0 0 0;
-  width: 600px;
   justify-content: space-between;
   background-color: white;
 }
