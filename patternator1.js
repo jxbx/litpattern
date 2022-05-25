@@ -21,7 +21,6 @@ let state = {
   color2: null,
 }
 
-
 //DOM elements
 
 const angle = document.getElementById("angle");
@@ -65,8 +64,8 @@ function generateCoordinates() {
 
 function generateSvg() {
 
-    while (smallContainer.hasChildNodes()) {
-      smallContainer.removeChild(smallContainer.firstChild);
+    while (smallContainer.childNodes.length > 2) {
+      smallContainer.removeChild(smallContainer.lastChild);
     }
 
     coordinates = [];
@@ -93,7 +92,7 @@ function generateSvg() {
       item.style.transformOrigin = "center";
       item.style.textAnchor = "middle";
       item.style.dominantBaseline = "middle";
-      item.style.fontFamily = "\"Raleway\", sans-serif";
+      item.style.fontFamily = "Raleway";
     }
     for (let i=0; i<9; i++){
       if (alternating.checked && i%2 === 0){
