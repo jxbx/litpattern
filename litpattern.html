@@ -10,34 +10,41 @@
 <body>
   <div id=panelContainer>
   <div id="header">
-    <?xml version="1.0" encoding="UTF-8"?>
     <svg enable-background="new 0 0 1125.2 133" version="1.1" viewBox="0 0 1125.2 133" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-    <path class="st0" d="m1010.6 132.9v-132.7c15.9 7.6 31.5 15 47.6 22.6v-22.5h66.9v132.7c-15.8-7.6-31.4-15-47.5-22.7v22.6h-67z"/>
-    <path class="st0" d="m352.4 114.5v18.3h-57.4v-132.6c1.1-0.1 2.1-0.2 3.2-0.2h53.8c25.9 0.1 47.9 16.4 55.5 40.9 9.5 30.5-10 64-41.4 71.2-4.4 1.1-8.9 1.6-13.7 2.4z"/>
-    <path class="st0" d="m887 132.8v-132.6h3.2 53.8c21.7 0 39.1 15 42.2 37 2.6 18.6-8.2 38.5-29.4 45.2-2 0.7-4.1 1-6.6 1.7 14.9 16.2 29.5 32.2 44.5 48.7h-107.7z"/>
-    <path class="st0" d="M57.1,66.4h38.2v66.2H0V0.2h57.1V66.4z"/>
-    <path class="st0" d="m530.7 0.2h95.4v56.9h-19v75.8h-57.4v-75.6h-19v-57.1z"/>
-    <path class="st0" d="M183.9,0.1h95.3v56.9h-18.9v75.8h-57.4V57.2h-19V0.1z"/>
-    <path class="st0" d="m641.8 0.2h95.4v56.8h-19v75.9h-57.4v-75.6h-19v-57.1z"/>
-    <path class="st0" d="m533.9 132.8h-129.9c21.6-44.1 43-87.8 64.9-132.5 21.9 44.4 43.3 88.2 65 132.5z"/>
-    <path class="st0" d="M168.2,0.2v132.4h-57.1V0.2H168.2z"/>
+      <path class="st0" d="m1010.6 132.9v-132.7c15.9 7.6 31.5 15 47.6 22.6v-22.5h66.9v132.7c-15.8-7.6-31.4-15-47.5-22.7v22.6h-67z"/>
+      <path class="st0" d="m352.4 114.5v18.3h-57.4v-132.6c1.1-0.1 2.1-0.2 3.2-0.2h53.8c25.9 0.1 47.9 16.4 55.5 40.9 9.5 30.5-10 64-41.4 71.2-4.4 1.1-8.9 1.6-13.7 2.4z"/>
+      <path class="st0" d="m887 132.8v-132.6h3.2 53.8c21.7 0 39.1 15 42.2 37 2.6 18.6-8.2 38.5-29.4 45.2-2 0.7-4.1 1-6.6 1.7 14.9 16.2 29.5 32.2 44.5 48.7h-107.7z"/>
+      <path class="st0" d="M57.1,66.4h38.2v66.2H0V0.2h57.1V66.4z"/>
+      <path class="st0" d="m530.7 0.2h95.4v56.9h-19v75.8h-57.4v-75.6h-19v-57.1z"/>
+      <path class="st0" d="M183.9,0.1h95.3v56.9h-18.9v75.8h-57.4V57.2h-19V0.1z"/>
+      <path class="st0" d="m641.8 0.2h95.4v56.8h-19v75.9h-57.4v-75.6h-19v-57.1z"/>
+      <path class="st0" d="m533.9 132.8h-129.9c21.6-44.1 43-87.8 64.9-132.5 21.9 44.4 43.3 88.2 65 132.5z"/>
+      <path class="st0" d="M168.2,0.2v132.4h-57.1V0.2H168.2z"/>
     <polygon class="st0" points="834.7 88.4 871.1 88.4 871.1 132.8 752.9 132.8 752.9 0.2 797.3 0.2 797.3 43.7 834.7 43.7"/>
     </svg>
 
     <span id="strapline">TEXT-BASED PATTERN GENERATOR</span>
 
     <div id="mainSelector">
-      <div class="mainButton" id="design" onclick="showDesign()">
+      <button class="mainButton" id="designButton" onclick="showPanel(this)">
         DESIGN
-      </div>
-      <div class="mainButton" id="output" value="0" onclick="showOutput()">
+      </button>
+      <button class="mainButton" id="outputButton" value="0" onclick="showPanel(this)">
         OUTPUT
-      </div>
-      <div class="mainButton" id="about" value="0" onclick="showAbout()">
+      </button>
+      <button class="mainButton" id="aboutButton" value="0" onclick="showPanel(this)">
         ABOUT
-      </div>
+      </button>
     </div>
   </div>
+
+  <div id="mobileNav">
+    <button id="mobileText" onclick="mobileSelect(this)">Text</button>
+    <button id="mobileAdjust" onclick="mobileSelect(this)">Adjust</button>
+    <button id="mobileRandom" onclick="mobileSelect(this)">Random</button>
+    <button id="mobileColor" onclick="mobileSelect(this)">Colour</button>
+  </div>
+
 
   <div id="designPanel">
 
@@ -49,7 +56,7 @@
 
       <div id="alternatingContainer">
         <label for="alternating">Alternating</label>
-        <input type="range" id="alternating" value="1" min="0" max="1">
+        <input type="range" id="alternating" value="1" min="0" max="1" oninput="updateToggle(this)">
       </div>
     </div>
 
@@ -88,17 +95,17 @@
 
     <div id="randomiseContainer">
 
-      <button>Randomise everything!</button>
+      <button id ="randomiseButton">Randomise everything!</button>
 
         <label for="RandomColor">
           Colours
         </label>
-        <input type="range" class="toggle" id="randomColor" value="1" min="0" max="1">
+        <input type="range" class="toggle" id="randomColor" value="1" min="0" max="1" onchange="updateToggle(this)">
 
         <label for="RandomValue">
         Values
         </label>
-      <input type="range" class="toggle" id="randomValue" value="1" min="0" max="1">
+      <input type="range" class="toggle" id="randomValue" value="1" min="0" max="1" oninput="updateToggle(this)">
 
     </div>
 
@@ -111,14 +118,14 @@
       </div>
     </div>
 
-    <button id="share1" class="outputButton">🡕 Share design</button>
+    <button id="share1" class="outputButton">Share design 🡕</button>
 
   </div>
 
   <div id="outputPanel">
 
       <button class="outputButton">
-       Copy SVG &lt/ &gt 
+       Copy SVG &lt/ &gt
       </button>
 
       <button class="outputButton">
@@ -138,6 +145,8 @@
   <div id="aboutPanel">
   </div>
 
+
+  <button id ="mobileTab">↑</button>
 
 
 
