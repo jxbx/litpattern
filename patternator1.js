@@ -6,6 +6,7 @@ const alternating = document.getElementById("alternating");
 const spacing = 300;
 
 let coordinates = [];
+let svgReady;
 
 let state = {
   character:null,
@@ -21,7 +22,32 @@ let state = {
 }
 
 
+//DOM elements
 
+const angle = document.getElementById("angle");
+const angleValue = document.getElementById("angleValue");
+angle.addEventListener("input", display);
+
+const dropShadow = document.getElementById("dropShadow");
+const dropShadowValue = document.getElementById("dropShadowValue");
+dropShadow.addEventListener("input", display);
+
+const fontSize = document.getElementById("fontSize");
+const fontSizeValue = document.getElementById("fontSizeValue");
+fontSize.addEventListener("input", display);
+
+const fontWeight = document.getElementById("fontWeight");
+const fontWeightValue = document.getElementById("fontWeightValue");
+fontWeight.addEventListener("input", display);
+
+const zoom = document.getElementById("zoom");
+const zoomValue = document.getElementById("zoomValue");
+zoom.addEventListener("input", display);
+
+const characterInput = document.getElementById("characterInput");
+characterInput.addEventListener("input", display);
+
+//generate SVG coordinates for the text elements that make up the pattern
 
 function generateCoordinates() {
   let min = -150;
@@ -35,33 +61,9 @@ function generateCoordinates() {
   }
 }
 
-const angle = document.getElementById("angle");
-const angleValue = document.getElementById("angleValue");
-angle.addEventListener("input", render);
+//applies styles to text elements, crops out a repeating tile using viewbox, and returns an array including code for inline svg and css background;
 
-const dropShadow = document.getElementById("dropShadow");
-const dropShadowValue = document.getElementById("dropShadowValue");
-dropShadow.addEventListener("input", render);
-
-const fontSize = document.getElementById("fontSize");
-const fontSizeValue = document.getElementById("fontSizeValue");
-fontSize.addEventListener("input", render);
-
-const fontWeight = document.getElementById("fontWeight");
-const fontWeightValue = document.getElementById("fontWeightValue");
-fontWeight.addEventListener("input", render);
-
-const zoom = document.getElementById("zoom");
-const zoomValue = document.getElementById("zoomValue");
-zoom.addEventListener("input", render);
-
-const characterInput = document.getElementById("characterInput");
-characterInput.addEventListener("input", render);
-
-const background = document.getElementById('wrapper');
-
-
-function generateCss() {
+function generateSvg() {
 
     while (smallContainer.hasChildNodes()) {
       smallContainer.removeChild(smallContainer.firstChild);
@@ -105,12 +107,20 @@ function generateCss() {
 
   smallContainer.setAttributeNS(null, "viewBox", -0.5*spacing + " " + -0.5*spacing + " " + spacing + " " + spacing);
 
-  let cssReady = "background-image: url(\'data:image/svg+xml;base64," + btoa(smallContainer.outerHTML) + "\'); background-size: " + zoom.value + "px;";
 
-  return cssReady;
+  let svgOutput = btoa(smallContainer.outerHTML);
+  let svgOutputArray = []
+
+  svgOutputArray.push("background-image: url(\'data:image/svg+xml;base64," + svgOutput + "\'); background-size: " + zoom.value + "px;");
+  svgOutputArray.push(svgOutput);
+
+  return svgOutputArray;
 }
 
-function render() {
+
+//updates state, updates DOM sliders, calls generateSvg() and displays pattern as background
+
+function display() {
 
   dropShadowValue.innerHTML = dropShadow.value;
   fontSizeValue.innerHTML = fontSize.value;
@@ -130,9 +140,9 @@ function render() {
   // state.colour1 = picker1.color.rgbaString;
   // state.colour2 = picker2.color.rgbaString;
 
-  let cssReady = generateCss();
+  svgReady = generateSvg();
 
- document.body.setAttribute("style", cssReady);
+ document.body.setAttribute("style", svgReady[0]);
 }
 
 
@@ -146,7 +156,7 @@ const picker0 = new Picker({
     smallContainer.style.backgroundColor = color.rgbaString;
     parent0.style.backgroundColor = color.rgbaString;
     state.color0 = color.rgbaString;
-    render();
+    display();
     }
   });
 
@@ -161,7 +171,7 @@ const picker1 = new Picker({
     }
     parent1.style.backgroundColor = color.rgbaString;
     state.color1 = color.rgbaString;
-    render();
+    display();
     }
   });
 
@@ -176,7 +186,7 @@ const picker1 = new Picker({
       };
       parent2.style.backgroundColor = color.rgbaString;
       state.color2 = color.rgbaString;
-      render();
+      display();
       }
     });
 
@@ -192,7 +202,7 @@ randomiseParameters.onclick = function() {
   characterInput.value = String.fromCharCode(Math.round(Math.random()*93)+33);
   alternating.checked = (Math.random() < 0.5) ? false : true;
 
-  render();
+  display();
 }
 
 const randomiseColors = document.getElementById("randomiseColors");
@@ -213,7 +223,7 @@ randomiseColors.onclick = function() {
   picker1.setColor(newColor());
   picker2.setColor(newColor());
 
-  render();
+  display();
 }
 
 const randomiseEverything = document.getElementById("randomiseEverything");
@@ -242,10 +252,11 @@ shareButton.onclick = function updateURL() {
 function loadState() {
   let string = window.location.hash.slice(1);
   if (string.length <= 0){
-    return;
+    state = stateLibrary[Math.floor(Math.random()*stateLibrary.length)];
   }
   else {
     state = JSON.parse(decodeURIComponent(string));
+  }
     characterInput.value = state.character;
     angle.value = state.angle;
     dropShadow.value = state.dropShadow;
@@ -258,8 +269,8 @@ function loadState() {
     picker1.setColor(state.color1);
     picker2.setColor(state.color2);
 
-    render();
-  }
+    display();
+
 }
 
 const downloadSVGButton = document.getElementById("downloadSVG");
@@ -280,7 +291,7 @@ const downloadSVGButton = document.getElementById("downloadSVG");
 
 const cssRepeat = document.getElementById("cssRepeat")
 cssRepeat.onclick = function () {
-  navigator.clipboard.writeText(generateCss())
+  navigator.clipboard.writeText(svgReady[0])
   .then(()=>{
     alert("CSS copied to clipboard");
   })
@@ -289,11 +300,59 @@ cssRepeat.onclick = function () {
   })
 }
 
+// const inlineSvg = document.getElementById("inlineSvg")
+// inlineSvg.onclick = function () {
+//   navigator.clipboard.writeText(svgReady[1])
+//   .then(()=>{
+//     alert("CSS copied to clipboard");
+//   })
+//   .catch(()=>{
+//     alert("error");
+//   })
+// }
 
 
+let stateLibrary = [
+  {
+    "character": ":",
+    "fontWeight": "440",
+    "fontSize": "172",
+    "dropShadow": "18",
+    "zoom": "353",
+    "angle": "271",
+    "alternating": true,
+    "color0": "rgba(203,208,91,1)",
+    "color1": "rgba(107,9,45,1)",
+    "color2": "rgba(228,101,228,1)"
+},
+{
+    "character": "O",
+    "fontWeight": "900",
+    "fontSize": "219",
+    "dropShadow": "0",
+    "zoom": "500",
+    "angle": "143",
+    "alternating": true,
+    "color0": "rgba(150,186,187,1)",
+    "color1": "rgba(75,30,40,1)",
+    "color2": "rgba(113,185,168,1)"
+},
+{
+    "character": "i",
+    "fontWeight": "436",
+    "fontSize": "210",
+    "dropShadow": "67",
+    "zoom": "55",
+    "angle": "296",
+    "alternating": true,
+    "color0": "rgba(151,79,202,1)",
+    "color1": "rgba(95,74,169,1)",
+    "color2": "rgba(194,120,206,1)"
+}
+];
 
 
-window.addEventListener("load", render);
 window.addEventListener("load", loadState);
-alternating.addEventListener("change", render);
+window.addEventListener("load", display);
+alternating.addEventListener("change", display);
 downloadSVGButton.addEventListener("click", downloadSVG);
