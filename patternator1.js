@@ -275,18 +275,18 @@ function loadState() {
 const downloadSVGButton = document.getElementById("downloadSVG");
 
 
-// function downloadSVG() {
-//   const blob = new Blob([bigContainer.innerHTML], { type: "image/svg+xml" });
-//   const objectUrl = URL.createObjectURL(blob);
-//
-//   const link = document.createElement("a");
-//   link.href = objectUrl;
-//   link.download = "mypattern";
-//   document.body.appendChild(link);
-//   link.click();
-//   document.body.removeChild(link);
-//   setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
-// }
+function downloadSVG() {
+  const blob = new Blob([bigContainer.innerHTML], { type: "image/svg+xml" });
+  const objectUrl = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = objectUrl;
+  link.download = "mypattern";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
+}
 
 const cssRepeat = document.getElementById("cssRepeat")
 cssRepeat.onclick = function () {
@@ -320,9 +320,9 @@ let stateLibrary = [
     "zoom": "353",
     "angle": "271",
     "alternating": true,
-    "color0": "rgba(203,208,91,1)",
-    "color1": "rgba(107,9,45,1)",
-    "color2": "rgba(228,101,228,1)"
+    "color0": "rgba(37,158,89,1)",
+    "color1": "rgba(82,170,48,1)",
+    "color2": "rgba(198,212,36,1)"
 },
 {
     "character": "O",
@@ -337,17 +337,44 @@ let stateLibrary = [
     "color2": "rgba(113,185,168,1)"
 },
 {
-    "character": "i",
-    "fontWeight": "436",
-    "fontSize": "210",
-    "dropShadow": "67",
-    "zoom": "55",
-    "angle": "296",
+    "character": "<",
+    "fontWeight": "100",
+    "fontSize": "250",
+    "dropShadow": "43",
+    "zoom": "188",
+    "angle": "184",
     "alternating": true,
-    "color0": "rgba(151,79,202,1)",
-    "color1": "rgba(95,74,169,1)",
-    "color2": "rgba(194,120,206,1)"
+    "color0": "rgba(140,74,74,1)",
+    "color1": "rgba(81,211,150,1)",
+    "color2": "rgba(84,119,171,1)"
+},
+{
+    "character": "(",
+    "fontWeight": "200",
+    "fontSize": "250",
+    "dropShadow": "13",
+    "zoom": "205",
+    "angle": "178",
+    "alternating": true,
+    "color0": "rgba(158,142,42,1)",
+    "color1": "rgba(174,67,123,1)",
+    "color2": "rgba(20,11,113,1)"
+},
+
+{
+    "character": "A",
+    "fontWeight": "100",
+    "fontSize": "192",
+    "dropShadow": "75",
+    "zoom": "201",
+    "angle": "0",
+    "alternating": true,
+    "color0": "rgba(120,68,42,1)",
+    "color1": "rgba(172,67,130,1)",
+    "color2": "rgba(235,21,20,1)"
 }
+
+
 ];
 
 
