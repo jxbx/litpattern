@@ -17,7 +17,6 @@ const swatchContainer = document.getElementById("swatchContainer");
 const slidersContainer = document.getElementById("slidersContainer");
 const textInputContainer = document.getElementById("textInputContainer");
 
-
 function showPanel(input) {
 
   input.style.background = "#f08d35";
@@ -72,7 +71,6 @@ function UpdateRandomiseButton (a,b) {
     randomiseButton.style.background = "#f08d35";
     randomiseButton.innerText = "Randomise sliders";
     randomiseButton.disabled = false;
-
   }
   else {
     randomiseButton.style.background = "#f08d35";
