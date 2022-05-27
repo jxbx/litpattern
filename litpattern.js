@@ -16,95 +16,170 @@ const randomiseContainer = document.getElementById("randomiseContainer");
 const swatchContainer = document.getElementById("swatchContainer");
 const slidersContainer = document.getElementById("slidersContainer");
 const textInputContainer = document.getElementById("textInputContainer");
+const mobileNav = document.getElementById("mobileNav");
 
-function showPanel(input) {
-
-  input.style.background = "#f08d35";
-
-  switch (input) {
-    case designButton:
-      outputPanel.style.height = "0";
-      aboutPanel.style.height = "0";
-      designPanel.style.height = "80vh";
-      outputButton.style.background = "#e2e2e2";
-      aboutButton.style.background = "#e2e2e2";
-      break;
-    case outputButton:
-      designPanel.style.height = "0";
-      outputPanel.style.height = "40vh";
-      aboutPanel.style.height = "0";
-      aboutButton.style.background = "#e2e2e2";
-      designButton.style.background = "#e2e2e2";
-      break;
-    case aboutButton:
-      aboutPanel.style.height = "80vh";
-      designPanel.style.height = "0";
-      outputPanel.style.height = "0";
-      outputButton.style.background = "#e2e2e2";
-      designButton.style.background = "#e2e2e2";
-      break;
-  }
+let uiState = {
+  textInputContainer: "none",
+  slidersContainer: "none",
+  randomiseContainer: "none",
+  swatchContainer:  "none",
+  mobileNav: "none",
+  designPanel: {display: "none", selected: "true"},
+  aboutPanel: {display: "none", selected: "false"},
+  outputPanel: {display: "none", selected: "false"}
 }
 
-function updateToggle (input) {
-  if (input.value <= 0){
-    input.style.filter = "grayscale()";
-  }
-  else{
-    input.style.filter = "none";
-  }
-  UpdateRandomiseButton(randomColor, randomValue);
-}
-
-function UpdateRandomiseButton (a,b) {
-  if (a.value <= 0 && b.value <= 0){
-    randomiseButton.style.background = "grey";
+function updateRandomiseButton () {
+  if (randomColor.checked === false && randomValue.checked === false){
     randomiseButton.innerText = "Randomise";
     randomiseButton.disabled = true;
   }
-  else if (a.value >= 1 && b.value <= 0){
-    randomiseButton.style.background = "#f08d35";
+  else if (randomColor.checked === true && randomValue.checked === false){
     randomiseButton.innerText = "Randomise colours";
     randomiseButton.disabled = false;
   }
-  else if (a.value <= 0 && b.value >= 1){
-    randomiseButton.style.background = "#f08d35";
+  else if (randomColor.checked === false && randomValue.checked === true){
     randomiseButton.innerText = "Randomise sliders";
     randomiseButton.disabled = false;
   }
   else {
-    randomiseButton.style.background = "#f08d35";
     randomiseButton.innerText = "Randomise everything!";
     randomiseButton.disabled = false;
   }
 }
 
-function mobileSelect (input) {
-  designPanel.style.display = "flex";
+function showPanel(input) {
+
+  let elements = document.getElementsByClassName("mainButton");
+  for (const element of elements){
+    element.style.background = "#e2e2e2";
+  }
+  input.style.background = "#f08d35";
+
   switch (input){
-    case mobileText:
-      textInputContainer.style.display = "flex";
-      slidersContainer.style.display = "none";
-      randomiseContainer.style.display = "none";
-      swatchContainer.style.display = "none";
+    case designButton:
+      if (breakpoint.matches && uiState["designPanel"] === "flex"){
+        uiState["designPanel"].display = "none";
+        uiState["mobileNav"] = "none";
+      }
+      else {
+        uiState["mobileNav"] = "flex";
+        uiState["designPanel"].display = "flex";
+      }
+        uiState["aboutPanel"].display = "none";
+        uiState["outputPanel"].display = "none";
+      renderUI();
       break;
-    case mobileAdjust:
-      textInputContainer.style.display = "none";
-      slidersContainer.style.display = "flex";
-      randomiseContainer.style.display = "none";
-      swatchContainer.style.display = "none";
+
+    case outputButton:
+      if (breakpoint.matches && uiState["outputPanel"].display === "flex"){
+        uiState["outputPanel"].display = "none";
+      }
+      else {
+      uiState["outputPanel"].display = "flex";
+      }
+      uiState["aboutPanel"].display = "none";
+      uiState["designPanel"].display = "none";
+      uiState["mobileNav"] = "none";
+      renderUI();
       break;
-    case mobileRandom:
-      textInputContainer.style.display = "none";
-      slidersContainer.style.display = "none";
-      randomiseContainer.style.display = "flex";
-      swatchContainer.style.display = "none";
-      break;
-    case mobileColor:
-      textInputContainer.style.display = "none";
-      slidersContainer.style.display = "none";
-      randomiseContainer.style.display = "none";
-      swatchContainer.style.display = "flex";
+
+    case aboutButton:
+      if (breakpoint.matches && uiState["aboutPanel"] === "flex"){
+        uiState["aboutPanel"].display = "none";
+      }
+      else {
+      uiState["aboutPanel"].display = "flex";
+      }
+      uiState["designPanel"].display = "none";
+      uiState["outputPanel"].display = "none";
+      uiState["mobileNav"] = "none";
+      renderUI();
       break;
   }
+
+
 }
+
+function mobileSelect (input) {
+
+let elements = document.getElementsByClassName("mobileButton")
+for (const element of elements){
+  element.style.background = "white";
+}
+
+uiState["designPanel"].display = "flex";
+uiState["mobileNav"] = "flex";
+
+input.style.background = "green";
+
+  switch(input){
+    case mobileText:
+      uiState["textInputContainer"] = "flex";
+      uiState["slidersContainer"] = "none";
+      uiState["randomiseContainer"] = "none";
+      uiState["swatchContainer"] = "none";
+      renderUI();
+      break;
+    case mobileAdjust:
+      uiState["textInputContainer"] = "none";
+      uiState["slidersContainer"] = "flex";
+      uiState["randomiseContainer"] = "none";
+      uiState["swatchContainer"] = "none";
+      renderUI();
+      break;
+    case mobileRandom:
+      uiState["textInputContainer"] = "none";
+      uiState["slidersContainer"] = "none";
+      uiState["randomiseContainer"] = "flex";
+      uiState["swatchContainer"] = "none";
+      renderUI();
+      break;
+    case mobileColor:
+      uiState["textInputContainer"] = "none";
+      uiState["slidersContainer"] = "none";
+      uiState["randomiseContainer"] = "none";
+      uiState["swatchContainer"] = "flex";
+      renderUI();
+      break;
+  }
+
+}
+
+function updateUIonBreakpoint () {
+  if (breakpoint.matches){
+    uiState["textInputContainer"] = "flex";
+    uiState["slidersContainer"] = "none";
+    uiState["randomiseContainer"] = "none";
+    uiState["swatchContainer"] = "none";
+    uiState["mobileNav"] = "flex";
+  }
+  else{
+
+  }
+renderUI();
+
+}
+
+function renderUI () {
+  if (breakpoint.matches){
+  }
+  else {
+    uiState["textInputContainer"] = "flex";
+    uiState["slidersContainer"] = "flex";
+    uiState["randomiseContainer"] = "flex";
+    uiState["swatchContainer"] = "flex";
+    uiState["mobileNav"] = "none";
+  }
+  textInputContainer.style.display = uiState["textInputContainer"];
+  slidersContainer.style.display = uiState["slidersContainer"];
+  randomiseContainer.style.display = uiState["randomiseContainer"];
+  swatchContainer.style.display = uiState["swatchContainer"];
+  designPanel.style.display = uiState["designPanel"].display;
+  outputPanel.style.display = uiState["outputPanel"].display;
+  aboutPanel.style.display = uiState["aboutPanel"].display;
+  mobileNav.style.display = uiState["mobileNav"];
+}
+
+  let breakpoint = window.matchMedia("(max-width: 600px)")
+  breakpoint.addListener(updateUIonBreakpoint);

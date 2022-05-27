@@ -12,7 +12,7 @@ body{
 button {
   font-family: inherit;
   font-size: inherit;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   border: none;
   justify-content: center;
   align-items: center;
@@ -100,81 +100,71 @@ svg .st0 {
 #designPanel, #outputPanel, #aboutPanel, #mobileNav{
 
   padding: 0 15px 0 15px;
-display: flex;
 background-image: url('data:image/svg+xml;base64,PHN2ZyBpZD0ic21hbGxDb250YWluZXIiIHZpZXdCb3g9Ii0xNTAgLTE1MCAzMDAgMzAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ij48dGV4dCBpZD0iaXRlbTAiIHg9Ii0xNTAiIHk9Ii0xNTAiIGNsYXNzPSJpdGVtIiBzdHlsZT0iZm9udC1zaXplOiAxMzZweDsgZm9udC13ZWlnaHQ6IDE3ODsgZmlsbDogcmdiKDI1MCwgMjUwLCAyNTApOyB0cmFuc2Zvcm0tYm94OiBmaWxsLWJveDsgdHJhbnNmb3JtLW9yaWdpbjogY2VudGVyIGNlbnRlcjsgdGV4dC1hbmNob3I6IG1pZGRsZTsgZG9taW5hbnQtYmFzZWxpbmU6IG1pZGRsZTsgZm9udC1mYW1pbHk6IFJhbGV3YXksIHNhbnMtc2VyaWY7Ij5XPC90ZXh0Pjx0ZXh0IGlkPSJpdGVtMSIgeD0iMCIgeT0iLTE1MCIgY2xhc3M9Iml0ZW0iIHN0eWxlPSJmb250LXNpemU6IDEzNnB4OyBmb250LXdlaWdodDogMTc4OyBmaWxsOiByZ2IoMjUwLCAyNTAsIDI1MCk7IHRyYW5zZm9ybS1ib3g6IGZpbGwtYm94OyB0cmFuc2Zvcm0tb3JpZ2luOiBjZW50ZXIgY2VudGVyOyB0ZXh0LWFuY2hvcjogbWlkZGxlOyBkb21pbmFudC1iYXNlbGluZTogbWlkZGxlOyBmb250LWZhbWlseTogUmFsZXdheSwgc2Fucy1zZXJpZjsgdHJhbnNmb3JtOiByb3RhdGUoMjQxZGVnKTsiPlc8L3RleHQ+PHRleHQgaWQ9Iml0ZW0yIiB4PSIxNTAiIHk9Ii0xNTAiIGNsYXNzPSJpdGVtIiBzdHlsZT0iZm9udC1zaXplOiAxMzZweDsgZm9udC13ZWlnaHQ6IDE3ODsgZmlsbDogcmdiKDI1MCwgMjUwLCAyNTApOyB0cmFuc2Zvcm0tYm94OiBmaWxsLWJveDsgdHJhbnNmb3JtLW9yaWdpbjogY2VudGVyIGNlbnRlcjsgdGV4dC1hbmNob3I6IG1pZGRsZTsgZG9taW5hbnQtYmFzZWxpbmU6IG1pZGRsZTsgZm9udC1mYW1pbHk6IFJhbGV3YXksIHNhbnMtc2VyaWY7Ij5XPC90ZXh0Pjx0ZXh0IGlkPSJpdGVtMyIgeD0iLTE1MCIgeT0iMCIgY2xhc3M9Iml0ZW0iIHN0eWxlPSJmb250LXNpemU6IDEzNnB4OyBmb250LXdlaWdodDogMTc4OyBmaWxsOiByZ2IoMjUwLCAyNTAsIDI1MCk7IHRyYW5zZm9ybS1ib3g6IGZpbGwtYm94OyB0cmFuc2Zvcm0tb3JpZ2luOiBjZW50ZXIgY2VudGVyOyB0ZXh0LWFuY2hvcjogbWlkZGxlOyBkb21pbmFudC1iYXNlbGluZTogbWlkZGxlOyBmb250LWZhbWlseTogUmFsZXdheSwgc2Fucy1zZXJpZjsgdHJhbnNmb3JtOiByb3RhdGUoMjQxZGVnKTsiPlc8L3RleHQ+PHRleHQgaWQ9Iml0ZW00IiB4PSIwIiB5PSIwIiBjbGFzcz0iaXRlbSIgc3R5bGU9ImZvbnQtc2l6ZTogMTM2cHg7IGZvbnQtd2VpZ2h0OiAxNzg7IGZpbGw6IHJnYigyNTAsIDI1MCwgMjUwKTsgdHJhbnNmb3JtLWJveDogZmlsbC1ib3g7IHRyYW5zZm9ybS1vcmlnaW46IGNlbnRlciBjZW50ZXI7IHRleHQtYW5jaG9yOiBtaWRkbGU7IGRvbWluYW50LWJhc2VsaW5lOiBtaWRkbGU7IGZvbnQtZmFtaWx5OiBSYWxld2F5LCBzYW5zLXNlcmlmOyI+VzwvdGV4dD48dGV4dCBpZD0iaXRlbTUiIHg9IjE1MCIgeT0iMCIgY2xhc3M9Iml0ZW0iIHN0eWxlPSJmb250LXNpemU6IDEzNnB4OyBmb250LXdlaWdodDogMTc4OyBmaWxsOiByZ2IoMjUwLCAyNTAsIDI1MCk7IHRyYW5zZm9ybS1ib3g6IGZpbGwtYm94OyB0cmFuc2Zvcm0tb3JpZ2luOiBjZW50ZXIgY2VudGVyOyB0ZXh0LWFuY2hvcjogbWlkZGxlOyBkb21pbmFudC1iYXNlbGluZTogbWlkZGxlOyBmb250LWZhbWlseTogUmFsZXdheSwgc2Fucy1zZXJpZjsgdHJhbnNmb3JtOiByb3RhdGUoMjQxZGVnKTsiPlc8L3RleHQ+PHRleHQgaWQ9Iml0ZW02IiB4PSItMTUwIiB5PSIxNTAiIGNsYXNzPSJpdGVtIiBzdHlsZT0iZm9udC1zaXplOiAxMzZweDsgZm9udC13ZWlnaHQ6IDE3ODsgZmlsbDogcmdiKDI1MCwgMjUwLCAyNTApOyB0cmFuc2Zvcm0tYm94OiBmaWxsLWJveDsgdHJhbnNmb3JtLW9yaWdpbjogY2VudGVyIGNlbnRlcjsgdGV4dC1hbmNob3I6IG1pZGRsZTsgZG9taW5hbnQtYmFzZWxpbmU6IG1pZGRsZTsgZm9udC1mYW1pbHk6IFJhbGV3YXksIHNhbnMtc2VyaWY7Ij5XPC90ZXh0Pjx0ZXh0IGlkPSJpdGVtNyIgeD0iMCIgeT0iMTUwIiBjbGFzcz0iaXRlbSIgc3R5bGU9ImZvbnQtc2l6ZTogMTM2cHg7IGZvbnQtd2VpZ2h0OiAxNzg7IGZpbGw6IHJnYigyNTAsIDI1MCwgMjUwKTsgdHJhbnNmb3JtLWJveDogZmlsbC1ib3g7IHRyYW5zZm9ybS1vcmlnaW46IGNlbnRlciBjZW50ZXI7IHRleHQtYW5jaG9yOiBtaWRkbGU7IGRvbWluYW50LWJhc2VsaW5lOiBtaWRkbGU7IGZvbnQtZmFtaWx5OiBSYWxld2F5LCBzYW5zLXNlcmlmOyB0cmFuc2Zvcm06IHJvdGF0ZSgyNDFkZWcpOyI+VzwvdGV4dD48dGV4dCBpZD0iaXRlbTgiIHg9IjE1MCIgeT0iMTUwIiBjbGFzcz0iaXRlbSIgc3R5bGU9ImZvbnQtc2l6ZTogMTM2cHg7IGZvbnQtd2VpZ2h0OiAxNzg7IGZpbGw6IHJnYigyNTAsIDI1MCwgMjUwKTsgdHJhbnNmb3JtLWJveDogZmlsbC1ib3g7IHRyYW5zZm9ybS1vcmlnaW46IGNlbnRlciBjZW50ZXI7IHRleHQtYW5jaG9yOiBtaWRkbGU7IGRvbWluYW50LWJhc2VsaW5lOiBtaWRkbGU7IGZvbnQtZmFtaWx5OiBSYWxld2F5LCBzYW5zLXNlcmlmOyI+VzwvdGV4dD48L3N2Zz4='); background-size: 55px;
   flex-direction: column;
   overflow: hidden;
   width:400px;
   filter: drop-shadow(-2px 0 5px rgba(0,0,0,0.2));
-  transition: all, 0.2s;
+  transition: all, 0.2s ease;
 }
 
 #mobileNav{
-  height: 15%;
+  height: 3%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   display: none;
   z-index: 1;
+  padding: 15px;
+  background: #f08d35;
 }
 
-#mobileNav button {
+.mobileButton {
   width: 80px;
-  height: 60px;
-  border-radius: 30px;
-  background: #2FAC66;
-}
-
-#mobileTab{
-  position: relative;
-  height: 60px;
-  width: 120px;
-  background: orange;
-  left: 15px;
-  bottom: 5px;
-  border-radius: 0 0 60px 60px;
-  display: none;
-  justify-content: center;
-  align-tems: center;
-  font-size: 25px;
-  z-index: -1;
+  height: 25px;
+  border-radius: 15px;
+  background: white;
 }
 
 #designPanel{
   justify-content: space-evenly;
   height:80%;
+  display: flex;
 }
 
 #outputPanel{
-  height: 0;
-  display: flex;
+  height: 40%;
   justify-content: space-evenly;
+  display: none;
 }
 
 #aboutPanel{
-  height: 0;
+  height: 80%;
+  display: none;
 }
 
 #textInputContainer {
   display: flex;
-  width: 87%;
-  justify-content: space-between;
-}
-
-#alternatingContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 40%;
+  padding: 0 54px 0 0;
   justify-content: space-between;
 }
 
 #charInputContainer {
   display: flex;
-  width: 47%;
-  justify-content: space-between;
+  justify-content: align-start;
   align-items: center;
 }
+
+#charInputContainer label {
+  padding: 0 15px 0 0;
+}
+
+#alternatingContainer{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 
 #slidersContainer{
  display: flex;
@@ -208,7 +198,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 18px;
   width: 18px;
   background: #f08d35;
-  transition: all 0.1s;
+  transition: all 0.1s ease;
   filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.1));
 }
 
@@ -218,7 +208,7 @@ cursor: pointer;
 }
 
 input[type="text"]{
-  width: 40%;
+  width: 40px;
   height: 30px;
   -webkit-appearance: none;
   border: 4px solid #f08d35;
@@ -226,42 +216,32 @@ input[type="text"]{
 
 #randomiseContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background: #e2e2e2;
   height: 50px;
   border-radius: 25px;
-
+  padding: 0 30px 0 0;
 }
 
-#randomiseContainer label {
-  margin: 0 12px 0 24px
-}
-
-#alternating, #randomColor, #randomValue {
-  width: 30px;
-}
-
-#randomColor, #randomValue {
-  background: white;
-}
-
-#randomiseContainer button {
+#randomiseButton {
   width: 120px;
   height: 100%;
   background: #f08d35;
   border-radius: 25px 0 0 25px;
 }
 
-
-#randomiseContainer button:disabled {
+#randomiseButton:disabled {
     filter: none;
-    background: #e2e2e2;
     color: black;
+    background: #c2c2c2;
+    cursor: not-allowed;
+    transition: none;
   }
 
-#randomiseContainer label {
-  width: 60px;
-}
+  #randomiseButton[disabled]:hover, #randomiseButton[disabled]:active{
+    font-size: 15px;
+  }
 
 #swatchContainer {
   display: flex;
@@ -301,6 +281,65 @@ input[type="text"]{
   border-radius:25px;
 }
 
+.toggleContainer {
+  position: relative;
+  display: inline-block;
+}
+.toggle {
+  display: none;
+}
+.toggleLabel {
+  display: block;
+  width: 30px;
+  height: 12px;
+  text-indent: -150%;
+  clip: rect(0 0 0 0);
+  color: transparent;
+  user-select: none;
+}
+.toggleLabel::before,
+.toggleLabel::after {
+  content: "";
+  display: block;
+  position: absolute;
+  cursor: pointer;
+}
+.toggleLabel::before {
+  width: 30px;
+  height: 12px;
+  background: #e2e2e2;
+  transition: all 0.2s ease;
+}
+.toggleLabel::after {
+  top: -2px;
+  width: 16px;
+  height: 16px;
+  background: grey;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+  transition: all 0.2s ease;
+}
+
+.toggle:checked + .toggleLabel::after {
+  left: 14px;
+  background: #f08d35;
+}
+
+#randomColorLabel::before, #randomValueLabel::before {
+  width: 30px;
+  height: 12px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+#randomColorContainer, #randomValueContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visibleToggleLabel {
+  padding: 0 15px 0 0;
+}
 
 
 
@@ -313,19 +352,11 @@ input[type="text"]{
     height: auto;
     padding: 15px;
   }
-  #mobileTab {
-    display: flex;
+
+  #header{
+    height: 15%;
   }
-  #textInputContainer{
+
+  #share1 {
     display: none;
   }
-  #slidersContainer{
-    display: none;
-  }
-  #randomiseContainer{
-    display: none;
-  }
-  #swatchContainer{
-    display: none;
-  }
-}

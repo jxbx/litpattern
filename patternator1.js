@@ -198,7 +198,11 @@ randomiseParameters.onclick = function() {
   fontSize.value = Math.random()*300 + 50;
   fontWeight.value = Math.random()*800 + 100;
   zoom.value = Math.random()*480 + 20;
-  characterInput.value = String.fromCharCode(Math.round(Math.random()*93)+33);
+  let newString = "";
+  for (let i=0; i<Math.round(Math.random())+1; i++){
+    newString += String.fromCharCode(Math.round(Math.random()*93)+33);
+  }
+  characterInput.value = newString;
   alternating.checked = (Math.random() < 0.5) ? false : true;
 
   display();
@@ -237,7 +241,7 @@ const shareButton = document.getElementById("shareButton");
 shareButton.onclick = function updateURL() {
 
 
-  let newState =  JSON.stringify(state);
+  let newState =  encodeURIComponent(JSON.stringify(state));
   window.location.hash = newState;
   navigator.clipboard.writeText(window.location.href)
     .then(()=>{
@@ -323,58 +327,67 @@ let stateLibrary = [
     "color0": "rgba(37,158,89,1)",
     "color1": "rgba(82,170,48,1)",
     "color2": "rgba(198,212,36,1)"
-},
-{
-    "character": "O",
-    "fontWeight": "900",
-    "fontSize": "219",
-    "dropShadow": "0",
-    "zoom": "500",
-    "angle": "143",
-    "alternating": true,
-    "color0": "rgba(150,186,187,1)",
-    "color1": "rgba(75,30,40,1)",
-    "color2": "rgba(113,185,168,1)"
-},
-{
-    "character": "<",
-    "fontWeight": "100",
-    "fontSize": "250",
-    "dropShadow": "43",
-    "zoom": "188",
-    "angle": "184",
-    "alternating": true,
-    "color0": "rgba(140,74,74,1)",
-    "color1": "rgba(81,211,150,1)",
-    "color2": "rgba(84,119,171,1)"
-},
-{
-    "character": "(",
-    "fontWeight": "200",
-    "fontSize": "250",
-    "dropShadow": "13",
-    "zoom": "205",
-    "angle": "178",
-    "alternating": true,
-    "color0": "rgba(158,142,42,1)",
-    "color1": "rgba(174,67,123,1)",
-    "color2": "rgba(20,11,113,1)"
-},
-
-{
-    "character": "A",
-    "fontWeight": "100",
-    "fontSize": "192",
-    "dropShadow": "75",
-    "zoom": "201",
-    "angle": "0",
-    "alternating": true,
-    "color0": "rgba(120,68,42,1)",
-    "color1": "rgba(172,67,130,1)",
-    "color2": "rgba(235,21,20,1)"
-}
-
-
+  },
+  {
+      "character": "O",
+      "fontWeight": "900",
+      "fontSize": "219",
+      "dropShadow": "0",
+      "zoom": "500",
+      "angle": "143",
+      "alternating": true,
+      "color0": "rgba(150,186,187,1)",
+      "color1": "rgba(75,30,40,1)",
+      "color2": "rgba(113,185,168,1)"
+  },
+  {
+      "character": "<",
+      "fontWeight": "100",
+      "fontSize": "250",
+      "dropShadow": "43",
+      "zoom": "188",
+      "angle": "184",
+      "alternating": true,
+      "color0": "rgba(140,74,74,1)",
+      "color1": "rgba(81,211,150,1)",
+      "color2": "rgba(84,119,171,1)"
+  },
+  {
+      "character": "(",
+      "fontWeight": "200",
+      "fontSize": "250",
+      "dropShadow": "13",
+      "zoom": "205",
+      "angle": "178",
+      "alternating": true,
+      "color0": "rgba(158,142,42,1)",
+      "color1": "rgba(174,67,123,1)",
+      "color2": "rgba(20,11,113,1)"
+  },
+  {
+      "character": "A",
+      "fontWeight": "100",
+      "fontSize": "192",
+      "dropShadow": "75",
+      "zoom": "201",
+      "angle": "0",
+      "alternating": true,
+      "color0": "rgba(120,68,42,1)",
+      "color1": "rgba(172,67,130,1)",
+      "color2": "rgba(235,21,20,1)"
+  },
+  {
+      "character": "K",
+      "fontWeight": "349",
+      "fontSize": "297",
+      "dropShadow": "75",
+      "zoom": "287",
+      "angle": "334",
+      "alternating": true,
+      "color0": "rgba(89,149,154,1)",
+      "color1": "rgba(234,98,118,1)",
+      "color2": "rgba(248,151,87,1)"
+  }
 ];
 
 

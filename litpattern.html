@@ -39,10 +39,10 @@
   </div>
 
   <div id="mobileNav">
-    <button id="mobileText" onclick="mobileSelect(this)">Text</button>
-    <button id="mobileAdjust" onclick="mobileSelect(this)">Adjust</button>
-    <button id="mobileRandom" onclick="mobileSelect(this)">Random</button>
-    <button id="mobileColor" onclick="mobileSelect(this)">Colour</button>
+    <button class = "mobileButton" id="mobileText" onclick="mobileSelect(this)">Text</button>
+    <button class = "mobileButton" id="mobileAdjust" onclick="mobileSelect(this)">Adjust</button>
+    <button class = "mobileButton" id="mobileRandom" onclick="mobileSelect(this)">Random</button>
+    <button class = "mobileButton" id="mobileColor" onclick="mobileSelect(this)">Colour</button>
   </div>
 
 
@@ -55,8 +55,11 @@
       </div>
 
       <div id="alternatingContainer">
-        <label for="alternating">Alternating</label>
-        <input type="range" id="alternating" value="1" min="0" max="1" oninput="updateToggle(this)">
+        <span class="visibleToggleLabel">Split rotation</span>
+          <div class="toggleContainer">
+            <input type="checkbox" class="toggle" id="alternating">
+            <label for="alternating" class="toggleLabel">Split rotation</label>
+          </div>
       </div>
     </div>
 
@@ -97,15 +100,21 @@
 
       <button id ="randomiseButton">Randomise everything!</button>
 
-        <label for="RandomColor">
-          Colours
-        </label>
-        <input type="range" class="toggle" id="randomColor" value="1" min="0" max="1" onchange="updateToggle(this)">
+      <div id="randomColorContainer">
+        <span class="visibleToggleLabel">Colours</span>
+          <div class="toggleContainer">
+            <input type="checkbox" class="toggle" id="randomColor" onclick="updateRandomiseButton()" checked>
+            <label for="randomColor" class="toggleLabel" id="randomColorLabel">Colours</label>
+          </div>
+      </div>
 
-        <label for="RandomValue">
-        Values
-        </label>
-      <input type="range" class="toggle" id="randomValue" value="1" min="0" max="1" oninput="updateToggle(this)">
+      <div id="randomValueContainer">
+        <span class="visibleToggleLabel">Sliders</span>
+          <div class="toggleContainer">
+            <input type="checkbox" class="toggle" id="randomValue" oninput="updateRandomiseButton(randomColor, randomValue)" checked>
+            <label for="randomValue" class="toggleLabel" id="randomValueLabel">Sliders</label>
+          </div>
+      </div>
 
     </div>
 
@@ -144,9 +153,6 @@
 
   <div id="aboutPanel">
   </div>
-
-
-  <button id ="mobileTab">↑</button>
 
 
 
