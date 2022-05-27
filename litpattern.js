@@ -19,15 +19,17 @@ const textInputContainer = document.getElementById("textInputContainer");
 const mobileNav = document.getElementById("mobileNav");
 
 let uiState = {
-  textInputContainer: "none",
+  textInputContainer: "flex",
   slidersContainer: "none",
   randomiseContainer: "none",
   swatchContainer:  "none",
-  mobileNav: "none",
-  designPanel: {display: "none", selected: "true"},
+  mobileNav: "flex",
+  designPanel: {display: "flex", selected: "true"},
   aboutPanel: {display: "none", selected: "false"},
   outputPanel: {display: "none", selected: "false"}
 }
+
+let uiVisibility = true;
 
 function updateRandomiseButton () {
   if (randomColor.checked === false && randomValue.checked === false){
@@ -58,7 +60,7 @@ function showPanel(input) {
 
   switch (input){
     case designButton:
-      if (breakpoint.matches && uiState["designPanel"] === "flex"){
+      if (breakpoint.matches && uiState["designPanel"].display === "flex"){
         uiState["designPanel"].display = "none";
         uiState["mobileNav"] = "none";
       }
@@ -68,6 +70,9 @@ function showPanel(input) {
       }
         uiState["aboutPanel"].display = "none";
         uiState["outputPanel"].display = "none";
+        uiState["designPanel"].selected = "true";
+        uiState["aboutPanel"].selected = "false";
+        uiState["outputPanel"].selected = "false";
       renderUI();
       break;
 
@@ -81,11 +86,14 @@ function showPanel(input) {
       uiState["aboutPanel"].display = "none";
       uiState["designPanel"].display = "none";
       uiState["mobileNav"] = "none";
+      uiState["designPanel"].selected = "false";
+      uiState["aboutPanel"].selected = "false";
+      uiState["outputPanel"].selected = "true";
       renderUI();
       break;
 
     case aboutButton:
-      if (breakpoint.matches && uiState["aboutPanel"] === "flex"){
+      if (breakpoint.matches && uiState["aboutPanel"].display === "flex"){
         uiState["aboutPanel"].display = "none";
       }
       else {
@@ -94,24 +102,25 @@ function showPanel(input) {
       uiState["designPanel"].display = "none";
       uiState["outputPanel"].display = "none";
       uiState["mobileNav"] = "none";
+      uiState["designPanel"].selected = "false";
+      uiState["aboutPanel"].selected = "true";
+      uiState["outputPanel"].selected = "false";
       renderUI();
       break;
   }
-
-
 }
 
 function mobileSelect (input) {
-
 let elements = document.getElementsByClassName("mobileButton")
 for (const element of elements){
-  element.style.background = "white";
+  element.style.textDecoration = "none";
+  element.style.fontWeight = "normal"
 }
 
 uiState["designPanel"].display = "flex";
 uiState["mobileNav"] = "flex";
-
-input.style.background = "green";
+input.style.textDecoration = "underline";
+input.style.fontWeight = "bold";
 
   switch(input){
     case mobileText:
@@ -155,6 +164,9 @@ function updateUIonBreakpoint () {
     uiState["mobileNav"] = "flex";
   }
   else{
+    uiState["designPanel"].selected === "true" ? uiState["designPanel"].display = "flex" : uiState["designPanel"].display = "none";
+    uiState["outputPanel"].selected === "true" ? uiState["outputPanel"].display = "flex" : uiState["outputPanel"].display = "none";
+    uiState["aboutPanel"].selected === "true" ? uiState["aboutPanel"].display = "flex" : uiState["aboutPanel"].display = "none";
 
   }
 renderUI();
@@ -162,9 +174,7 @@ renderUI();
 }
 
 function renderUI () {
-  if (breakpoint.matches){
-  }
-  else {
+  if (!breakpoint.matches){
     uiState["textInputContainer"] = "flex";
     uiState["slidersContainer"] = "flex";
     uiState["randomiseContainer"] = "flex";
@@ -181,5 +191,30 @@ function renderUI () {
   mobileNav.style.display = uiState["mobileNav"];
 }
 
+function hideUI (input) {
+
+  let target = input.target;
+  if (target != document.body || !breakpoint.matches){
+    return
+  }
+  else {
+    if (uiVisibility === true){
+      designPanel.style.display = "none";
+      outputPanel.style.display = "none";
+      aboutPanel.style.display = "none";
+      mobileNav.style.display = "none";
+      uiVisibility = false;
+    }
+    else {
+      uiVisibility = true;
+      renderUI();
+    }
+
+  }
+}
+
   let breakpoint = window.matchMedia("(max-width: 600px)")
-  breakpoint.addListener(updateUIonBreakpoint);
+  breakpoint.addEventListener("change", updateUIonBreakpoint);
+
+  window.onload = renderUI;
+  document.body.addEventListener("click", (evt) => {hideUI(evt)});

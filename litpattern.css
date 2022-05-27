@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
 
+
+
+
 body{
+    min-height: 100vh;
     font-family: "Montserrat", sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -72,7 +76,6 @@ svg .st0 {
   font-weight: 600;
 }
 
-
 .mainButton {
   position: relative;
   background: #e2e2e2;
@@ -105,7 +108,7 @@ background-image: url('data:image/svg+xml;base64,PHN2ZyBpZD0ic21hbGxDb250YWluZXI
   overflow: hidden;
   width:400px;
   filter: drop-shadow(-2px 0 5px rgba(0,0,0,0.2));
-  transition: all, 0.2s ease;
+  transition: none;
 }
 
 #mobileNav{
@@ -120,10 +123,15 @@ background-image: url('data:image/svg+xml;base64,PHN2ZyBpZD0ic21hbGxDb250YWluZXI
 }
 
 .mobileButton {
-  width: 80px;
-  height: 25px;
-  border-radius: 15px;
-  background: white;
+  width: 75px;
+  height: 22px;
+  background: none;
+  text-underline-offset: 2px;
+}
+
+#mobileText {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 #designPanel{
@@ -134,7 +142,8 @@ background-image: url('data:image/svg+xml;base64,PHN2ZyBpZD0ic21hbGxDb250YWluZXI
 
 #outputPanel{
   height: 40%;
-  justify-content: space-evenly;
+  justify-content: center;
+  row-gap: 15px;
   display: none;
 }
 
@@ -347,6 +356,12 @@ input[type="text"]{
   #mobileNav{
     display: flex;
   }
+
+  #panelContainer{
+    height: auto;
+    min-height: 0;
+  }
+
   #designPanel, #outputPanel, #aboutPanel{
     display: none;
     height: auto;
@@ -360,3 +375,4 @@ input[type="text"]{
   #share1 {
     display: none;
   }
+}
