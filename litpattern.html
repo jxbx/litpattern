@@ -50,10 +50,10 @@ src: url(data:application/font-woff2;base64,d09GMgABAAAAAfjUABUAAAAEw8wAAfhcAAEA
         <button class="mainButton" id="designButton" onclick="showPanel(this)">
           DESIGN
         </button>
-        <button class="mainButton" id="outputButton" value="0" onclick="showPanel(this)">
+        <button class="mainButton" id="outputButton" onclick="showPanel(this)">
           OUTPUT
         </button>
-        <button class="mainButton" id="aboutButton" value="0" onclick="showPanel(this)">
+        <button class="mainButton" id="aboutButton" onclick="showPanel(this)">
           ABOUT
         </button>
       </div>
@@ -72,7 +72,7 @@ src: url(data:application/font-woff2;base64,d09GMgABAAAAAfjUABUAAAAEw8wAAfhcAAEA
       <div id="textInputContainer">
         <div id="characterInputContainer">
           <label for="characterInput">Text input</label>
-          <input id="characterInput" type="text" value="(">
+          <input id="characterInput" type="text" maxlength="2">
         </div>
 
         <div id="alternatingContainer">
