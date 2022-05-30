@@ -9,8 +9,8 @@
   <title>Patternator 1</title>
 </head>
 <body>
-  <div id="bigContainer">
-    <svg id="smallContainer" viewbox ="-300 -300 600 600" xmlns="http://www.w3.org/2000/svg">
+  <div id="patternContainer">
+    <svg id="patternSwatch" viewbox ="-300 -300 600 600" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <style>
         @font-face {
@@ -26,7 +26,7 @@ src: url(data:application/font-woff2;base64,d09GMgABAAAAAfjUABUAAAAEw8wAAfhcAAEA
 <section class="controls">
   <form>
     <label for="characterInput">Character input:</label>
-    <input type="text" id ="characterInput" name = "characterInput" value = "W" maxlength = "3">
+    <input type="text" id ="characterInput" name = "characterInput" maxlength = "2">
     <label for="vehicle1">Alternating</label>
     <input type="checkbox" id="alternating" name="alternating">
   </form>
@@ -38,31 +38,31 @@ src: url(data:application/font-woff2;base64,d09GMgABAAAAAfjUABUAAAAEw8wAAfhcAAEA
       <div class="slideContainer">
         <p>angle</p>
         <input type="range" min="0" max="359" value="0" class="slider" id="angle">
-        <p>Value: <span id="angleValue">0</span></p>
+        <p>Value: <span id="angleValue"></span></p>
       </div>
 
       <div class="slideContainer">
         <p>drop shadow</p>
-        <input type="range" min="0" max="75" value="0" class="slider" id="dropShadow">
-        <p>Value: <span id="dropShadowValue">0</span></p>
+        <input type="range" min="0" max="75" class="slider" id="dropShadow">
+        <p>Value: <span id="dropShadowValue"></span></p>
       </div>
 
       <div class="slideContainer">
         <p>font size</p>
-        <input type="range" min="50" max="350" value="100" class="slider" id="fontSize">
-        <p>Value: <span id="fontSizeValue">100</span></p>
+        <input type="range" min="50" max="350" class="slider" id="fontSize">
+        <p>Value: <span id="fontSizeValue"></span></p>
       </div>
 
       <div class="slideContainer">
         <p>font weight</p>
-        <input type="range" min="100" max="900" value="150" class="slider" id="fontWeight">
-        <p>Value: <span id="fontWeightValue">100</span></p>
+        <input type="range" min="100" max="900" class="slider" id="fontWeight">
+        <p>Value: <span id="fontWeightValue"></span></p>
       </div>
 
       <div class="slideContainer">
         <p>zoom</p>
-        <input type="range" min="20" max="500" value="100" class="slider" id="zoom">
-        <p>Value: <span id="zoomValue">100</span></p>
+        <input type="range" min="20" max="500" class="slider" id="zoom">
+        <p>Value: <span id="zoomValue"></span></p>
       </div>
 
 
@@ -71,9 +71,9 @@ src: url(data:application/font-woff2;base64,d09GMgABAAAAAfjUABUAAAAEw8wAAfhcAAEA
 
 <section class="controls">
 
-  <div id="parent0" class="colourSelectContainer">Background colour</div>
-  <div id="parent1"  class="colourSelectContainer">Foreground colour 1</div>
-  <div id="parent2"  class="colourSelectContainer">Foreground colour 2</div>
+  <div id="swatch01" class="colourSelectContainer">Background colour</div>
+  <div id="swatch02"  class="colourSelectContainer">Foreground colour 1</div>
+  <div id="swatch03"  class="colourSelectContainer">Foreground colour 2</div>
 
 </section>
 

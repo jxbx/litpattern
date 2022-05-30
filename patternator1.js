@@ -1,12 +1,19 @@
-const smallContainer = document.getElementById("smallContainer");
-const bigContainer = document.getElementById("bigContainer");
+const patternSwatch = document.getElementById("patternSwatch");
+const patternContainer = document.getElementById("patternContainer");
 const gridItems = document.getElementsByClassName("item");
-const box = document.getElementById("box");
 const alternating = document.getElementById("alternating");
-const spacing = 300;
+
+//Used to control spacing of svg pattern (adjusting this reduces how far elements can overlap and can be used to stop clipping)
+
+const spacing = 150;
+
+//used to generate coordinates for svg pattern:
 
 let coordinates = [];
+
 let svgReady;
+
+//pattern design saved here:
 
 let state = {
   character:null,
@@ -16,9 +23,9 @@ let state = {
   zoom: null,
   angle: null,
   alternating: null,
-  color0: null,
-  color1: null,
-  color2: null,
+  color01: null,
+  color02: null,
+  color03: null,
 }
 
 //DOM elements
@@ -49,23 +56,23 @@ characterInput.addEventListener("input", display);
 //generate SVG coordinates for the text elements that make up the pattern
 
 function generateCoordinates() {
-  let min = -150;
+  let min = -spacing;
   for (let y=0; y<3; y++){
     for (let x=0; x<3; x++){
       let item = [];
-      item.push(min + 150*x);
-      item.push(min + 150*y);
+      item.push(min + spacing*x);
+      item.push(min + spacing*y);
       coordinates.push(item);
     }
   }
 }
 
-//applies styles to text elements, crops out a repeating tile using viewbox, and returns an array including code for inline svg and css background;
+//Applies styles to text elements, crops out a repeating tile using viewbox, and returns an array including code for inline svg and css background;
 
 function generateSvg() {
 
-    while (smallContainer.childNodes.length > 2) {
-      smallContainer.removeChild(smallContainer.lastChild);
+    while (patternSwatch.childNodes.length > 2) {
+      patternSwatch.removeChild(patternSwatch.lastChild);
     }
 
     coordinates = [];
@@ -79,15 +86,15 @@ function generateSvg() {
       shape.setAttributeNS(null, "class", "item");
       const text  = document.createTextNode(characterInput.value);
       shape.appendChild(text);
-      smallContainer.appendChild(shape);
+      patternSwatch.appendChild(shape);
     }
 
     for (const item of gridItems){
-      state.dropShadow <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow("+ state.dropShadow +"px 0 " + state.color2 + ")";
+      state.dropShadow <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow("+ state.dropShadow +"px 0 " + state.color03 + ")";
 
       item.style.fontSize = state.fontSize + "px";
       item.style.fontWeight = state.fontWeight;
-      item.style.fill = state.color1;
+      item.style.fill = state.color02;
       item.style.transformBox = "fill-box";
       item.style.transformOrigin = "center";
       item.style.textAnchor = "middle";
@@ -104,10 +111,10 @@ function generateSvg() {
     }
 
 
-  smallContainer.setAttributeNS(null, "viewBox", -0.5*spacing + " " + -0.5*spacing + " " + spacing + " " + spacing);
+  patternSwatch.setAttributeNS(null, "viewBox", -spacing + " " + -spacing + " " + spacing*2 + " " + spacing*2);
 
 
-  let svgOutput = btoa(smallContainer.outerHTML);
+  let svgOutput = btoa(patternSwatch.outerHTML);
   let svgOutputArray = []
 
   svgOutputArray.push("background-image: url(\'data:image/svg+xml;base64," + svgOutput + "\'); background-size: " + zoom.value + "px;");
@@ -135,56 +142,54 @@ function display() {
   state.zoom = zoom.value;
   state.alternating = alternating.checked;
 
-  // state.colour0 = picker0.color.rgbaString;
-  // state.colour1 = picker1.color.rgbaString;
-  // state.colour2 = picker2.color.rgbaString;
-
   svgReady = generateSvg();
 
  document.body.setAttribute("style", svgReady[0]);
 }
 
 
-const parent0 = document.getElementById('parent0');
-const picker0 = new Picker({
-  parent: parent0,
+const swatch01 = document.getElementById('swatch01');
+const picker01 = new Picker({
+  parent: swatch01,
   color: "#2197ac",
   popup: "bottom",
   alpha: false,
   onChange: function (color) {
-    smallContainer.style.backgroundColor = color.rgbaString;
-    parent0.style.backgroundColor = color.rgbaString;
-    state.color0 = color.rgbaString;
+    patternSwatch.style.backgroundColor = color.rgbaString;
+    swatch01.style.backgroundColor = color.rgbaString;
+    state.color01 = color.rgbaString;
     display();
     }
   });
 
-const parent1 = document.getElementById("parent1");
-const picker1 = new Picker({
-  parent: parent1,
+const swatch02 = document.getElementById("swatch02");
+const picker02 = new Picker({
+  parent: swatch02,
   color: "#f45555ff",
   popup: "bottom",
+  alpha: false,
   onChange: function (color) {
     for (const item of gridItems){
       item.style.fill = color.rgbaString;
     }
-    parent1.style.backgroundColor = color.rgbaString;
-    state.color1 = color.rgbaString;
+    swatch02.style.backgroundColor = color.rgbaString;
+    state.color02 = color.rgbaString;
     display();
     }
   });
 
-  const parent2 = document.getElementById("parent2");
-  const picker2 = new Picker({
-    parent: parent2,
+  const swatch03 = document.getElementById("swatch03");
+  const picker03 = new Picker({
+    parent: swatch03,
     color: "#356969ff",
     popup: "bottom",
+    alpha: false,
     onChange: function (color) {
       for (const item of gridItems){
           dropShadow.value <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow("+dropShadow.value+"px 0" + color.hex +")";
       };
-      parent2.style.backgroundColor = color.rgbaString;
-      state.color2 = color.rgbaString;
+      swatch03.style.backgroundColor = color.rgbaString;
+      state.color03 = color.rgbaString;
       display();
       }
     });
@@ -222,9 +227,9 @@ randomiseColors.onclick = function() {
 
   //setColor() is from the vanillapicker module;
 
-  picker0.setColor(newColor());
-  picker1.setColor(newColor());
-  picker2.setColor(newColor());
+  picker01.setColor(newColor());
+  picker02.setColor(newColor());
+  picker03.setColor(newColor());
 
   display();
 }
@@ -268,9 +273,9 @@ function loadState() {
     zoom.value = state.zoom;
     alternating.checked = state.alternating;
 
-    picker0.setColor(state.color0);
-    picker1.setColor(state.color1);
-    picker2.setColor(state.color2);
+    picker01.setColor(state.color01);
+    picker02.setColor(state.color02);
+    picker03.setColor(state.color03);
 
     display();
 
@@ -280,7 +285,7 @@ const downloadSVGButton = document.getElementById("downloadSVG");
 
 
 function downloadSVG() {
-  const blob = new Blob([bigContainer.innerHTML], { type: "image/svg+xml" });
+  const blob = new Blob([patternContainer.innerHTML], { type: "image/svg+xml" });
   const objectUrl = URL.createObjectURL(blob);
 
   const link = document.createElement("a");
@@ -324,9 +329,9 @@ let stateLibrary = [
     "zoom": "353",
     "angle": "271",
     "alternating": true,
-    "color0": "rgba(37,158,89,1)",
-    "color1": "rgba(82,170,48,1)",
-    "color2": "rgba(198,212,36,1)"
+    "color01": "rgba(37,158,89,1)",
+    "color02": "rgba(82,170,48,1)",
+    "color03": "rgba(198,212,36,1)"
   },
   {
       "character": "O",
@@ -336,9 +341,9 @@ let stateLibrary = [
       "zoom": "500",
       "angle": "143",
       "alternating": true,
-      "color0": "rgba(150,186,187,1)",
-      "color1": "rgba(75,30,40,1)",
-      "color2": "rgba(113,185,168,1)"
+      "color01": "rgba(150,186,187,1)",
+      "color02": "rgba(75,30,40,1)",
+      "color03": "rgba(113,185,168,1)"
   },
   {
       "character": "<",
@@ -348,9 +353,9 @@ let stateLibrary = [
       "zoom": "188",
       "angle": "184",
       "alternating": true,
-      "color0": "rgba(140,74,74,1)",
-      "color1": "rgba(81,211,150,1)",
-      "color2": "rgba(84,119,171,1)"
+      "color01": "rgba(140,74,74,1)",
+      "color02": "rgba(81,211,150,1)",
+      "color03": "rgba(84,119,171,1)"
   },
   {
       "character": "(",
@@ -360,9 +365,9 @@ let stateLibrary = [
       "zoom": "205",
       "angle": "178",
       "alternating": true,
-      "color0": "rgba(158,142,42,1)",
-      "color1": "rgba(174,67,123,1)",
-      "color2": "rgba(20,11,113,1)"
+      "color01": "rgba(158,142,42,1)",
+      "color02": "rgba(174,67,123,1)",
+      "color03": "rgba(20,11,113,1)"
   },
   {
       "character": "A",
@@ -372,9 +377,9 @@ let stateLibrary = [
       "zoom": "201",
       "angle": "0",
       "alternating": true,
-      "color0": "rgba(120,68,42,1)",
-      "color1": "rgba(172,67,130,1)",
-      "color2": "rgba(235,21,20,1)"
+      "color01": "rgba(120,68,42,1)",
+      "color02": "rgba(172,67,130,1)",
+      "color03": "rgba(235,21,20,1)"
   },
   {
       "character": "K",
@@ -384,9 +389,9 @@ let stateLibrary = [
       "zoom": "287",
       "angle": "334",
       "alternating": true,
-      "color0": "rgba(89,149,154,1)",
-      "color1": "rgba(234,98,118,1)",
-      "color2": "rgba(248,151,87,1)"
+      "color01": "rgba(89,149,154,1)",
+      "color02": "rgba(234,98,118,1)",
+      "color03": "rgba(248,151,87,1)"
   }
 ];
 
