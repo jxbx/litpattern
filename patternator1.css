@@ -1,0 +1,30 @@
+
+body{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#patternContainer {
+  height: 600px;
+  width: 600px;
+  /* display: none; */
+}
+
+
+section {
+  padding: 20px 0 0 0;
+}
+
+.controls {
+  display: flex;
+  padding: 10px 0 0 0;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.colourSelectContainer {
+  border: 1px solid black;
+  height: 50px;
+  padding: 0 10px 0 10px;
+  flex-grow: 1;
+}
