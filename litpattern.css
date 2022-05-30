@@ -116,13 +116,12 @@ svg .st0 {
 }
 
 #mobileNav {
-  height: 3%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   display: none;
   z-index: 1;
-  padding: 15px;
+  padding: 5px 15px 10px 5px;
   background: #f08d35;
 }
 
@@ -182,7 +181,7 @@ svg .st0 {
 #slidersContainer {
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: 170px;
   justify-content: space-between;
 }
 
@@ -244,7 +243,7 @@ input[type="text"] {
   border-radius: 25px 0 0 25px;
 }
 
-#randomiseButton:disabled {
+#randomiseButton:disabled, #copySVGinline:disabled {
   filter: none;
   color: black;
   background: #c2c2c2;
