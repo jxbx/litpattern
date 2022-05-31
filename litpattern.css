@@ -130,11 +130,6 @@ svg .st0 {
   text-underline-offset: 2px;
 }
 
-#mobileText {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
 #designPanel {
   justify-content: space-evenly;
   height: 80%;
@@ -408,7 +403,7 @@ input[type="text"] {
 
 }
 
-.moo {
+.swatch {
   width: 120px;
   height: 120px;
   border-radius: 50%;

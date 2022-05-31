@@ -269,7 +269,10 @@ const zoomValue = document.getElementById("zoomValue");
 zoom.addEventListener("input", display);
 
 const characterInput = document.getElementById("characterInput");
-characterInput.addEventListener("input", display);
+characterInput.addEventListener("input", function (event) {
+    event.target.value = event.target.value.substring(0, 2);
+    display();
+});
 
 const patternContainer = document.getElementById("patternContainer");
 const patternSwatch = document.getElementById("patternSwatch");
@@ -285,6 +288,8 @@ const spacing = 150;
 let coordinates = [];
 
 let svgReady;
+
+
 
 //pattern design saved here:
 
