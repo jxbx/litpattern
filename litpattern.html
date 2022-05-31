@@ -60,14 +60,39 @@ src: url(data:application/font-woff2;base64,d09GMgABAAAAAfjUABUAAAAEw8wAAfhcAAEA
     </div>
 
     <div id="mobileNav">
+      <button class="mobileButton" id="mobileRandom" onclick="mobileSelect(this)">Randomise</button>
       <button class="mobileButton" id="mobileText" onclick="mobileSelect(this)">Text</button>
       <button class="mobileButton" id="mobileAdjust" onclick="mobileSelect(this)">Adjust</button>
-      <button class="mobileButton" id="mobileRandom" onclick="mobileSelect(this)">Randomise</button>
       <button class="mobileButton" id="mobileColor" onclick="mobileSelect(this)">Colour</button>
     </div>
 
 
     <div id="designPanel">
+
+
+            <div id="randomiseContainer">
+
+              <button class="randomiseButton" id="randomiseColorsButton">Random colours</button>
+              <button class="randomiseButton" id="randomiseSlidersButton">Random sliders</button>
+              <button class="randomiseButton" id="randomiseEverythingButton">Random everything!</button>
+
+              <!-- <div id="randomColorContainer">
+                <span class="visibleToggleLabel">Colours</span>
+                <div class="toggleContainer">
+                  <input type="checkbox" class="toggle" id="randomColor" onclick="updateRandomiseButton()" checked>
+                  <label for="randomColor" class="toggleLabel" id="randomColorLabel" tabindex=0>Colours</label>
+                </div>
+              </div>
+
+              <div id="randomValueContainer">
+                <span class="visibleToggleLabel">Sliders</span>
+                <div class="toggleContainer">
+                  <input type="checkbox" class="toggle" id="randomValue" oninput="updateRandomiseButton(randomColor, randomValue)" checked>
+                  <label for="randomValue" class="toggleLabel" id="randomValueLabel" tabindex=0>Sliders</label>
+                </div>
+              </div> -->
+
+            </div>
 
       <div id="textInputContainer">
         <div id="characterInputContainer">
@@ -117,35 +142,17 @@ src: url(data:application/font-woff2;base64,d09GMgABAAAAAfjUABUAAAAEw8wAAfhcAAEA
         </div>
       </div>
 
-      <div id="randomiseContainer">
-
-        <button id="randomiseButton">Randomise everything!</button>
-
-        <div id="randomColorContainer">
-          <span class="visibleToggleLabel">Colours</span>
-          <div class="toggleContainer">
-            <input type="checkbox" class="toggle" id="randomColor" onclick="updateRandomiseButton()" checked>
-            <label for="randomColor" class="toggleLabel" id="randomColorLabel" tabindex=0>Colours</label>
-          </div>
-        </div>
-
-        <div id="randomValueContainer">
-          <span class="visibleToggleLabel">Sliders</span>
-          <div class="toggleContainer">
-            <input type="checkbox" class="toggle" id="randomValue" oninput="updateRandomiseButton(randomColor, randomValue)" checked>
-            <label for="randomValue" class="toggleLabel" id="randomValueLabel" tabindex=0>Sliders</label>
-          </div>
-        </div>
-
-      </div>
 
       <div id="swatchContainer">
-        <div class="swatch" id="swatch01">
+        <!-- <div class="swatch" id="swatch01" tabindex="0">
         </div>
-        <div class="swatch" id="swatch02">
+        <div class="swatch" id="swatch02" tabindex="0">
         </div>
-        <div class="swatch" id="swatch03">
-        </div>
+        <div class="swatch" id="swatch03" tabindex="0">
+        </div> -->
+        <div class="foo"><input type="color" id="picker01"><div class="moo" id="swatch01"></div></div>
+        <div class="foo"><input type="color" id="picker02"><div class="moo" id="swatch02"></div></div>
+        <div class="foo"><input type="color" id="picker03"><div class="moo" id="swatch03"></div></div>
       </div>
 
       <button id="share1" class="outputButton">Share design ↗</button>

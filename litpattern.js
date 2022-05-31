@@ -49,21 +49,21 @@ let uiState = {
 
 //toggle randomise button:
 
-function updateRandomiseButton() {
-  if (randomColor.checked === false && randomValue.checked === false) {
-    randomiseButton.innerText = "Randomise";
-    randomiseButton.disabled = true;
-  } else if (randomColor.checked && randomValue.checked === false) {
-    randomiseButton.innerText = "Randomise colours";
-    randomiseButton.disabled = false;
-  } else if (randomColor.checked === false && randomValue.checked) {
-    randomiseButton.innerText = "Randomise sliders";
-    randomiseButton.disabled = false;
-  } else {
-    randomiseButton.innerText = "Randomise everything!";
-    randomiseButton.disabled = false;
-  }
-}
+// function updateRandomiseButton() {
+//   if (randomColor.checked === false && randomValue.checked === false) {
+//     randomiseButton.innerText = "Randomise";
+//     randomiseButton.disabled = true;
+//   } else if (randomColor.checked && randomValue.checked === false) {
+//     randomiseButton.innerText = "Randomise colours";
+//     randomiseButton.disabled = false;
+//   } else if (randomColor.checked === false && randomValue.checked) {
+//     randomiseButton.innerText = "Randomise sliders";
+//     randomiseButton.disabled = false;
+//   } else {
+//     randomiseButton.innerText = "Randomise everything!";
+//     randomiseButton.disabled = false;
+//   }
+// }
 
 //controls for #mainSelector component
 
@@ -337,6 +337,8 @@ function generateSvg() {
     patternSwatch.appendChild(shape);
   }
 
+  patternSwatch.style.background = state.color01;
+
   for (const item of gridItems) {
     state.dropShadow <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow(" + state.dropShadow + "px 0 " + state.color03 + ")";
 
@@ -380,7 +382,9 @@ function display() {
   fontWeightValue.innerHTML = fontWeight.value;
   zoomValue.innerHTML = zoom.value;
   angleValue.innerHTML = angle.value;
-
+  swatch01.style.background = picker01.value;
+  swatch02.style.background = picker02.value;
+  swatch03.style.background = picker03.value;
   state.character = characterInput.value;
   state.angle = angle.value;
   state.dropShadow = dropShadow.value;
@@ -388,73 +392,115 @@ function display() {
   state.fontWeight = fontWeight.value;
   state.zoom = zoom.value;
   state.alternating = alternating.checked;
+  state.color01 = picker01.value;
+  state.color02 = picker02.value;
+  state.color03 = picker03.value;
 
   svgReady = generateSvg();
 
   document.body.setAttribute("style", svgReady[0]);
 }
 
-const swatch01 = document.getElementById('swatch01');
-const picker01 = new Picker({
-  parent: swatch01,
-  color: "#2197ac",
-  popup: "top",
-  alpha: false,
-  onChange: function(color) {
-    patternSwatch.style.backgroundColor = color.rgbaString;
-    swatch01.style.backgroundColor = color.rgbaString;
-    state.color01 = color.rgbaString;
-    display();
-  }
-});
-
-const swatch02 = document.getElementById("swatch02");
-const picker02 = new Picker({
-  parent: swatch02,
-  color: "#f45555ff",
-  popup: "top",
-  alpha: false,
-  onChange: function(color) {
-    for (const item of gridItems) {
-      item.style.fill = color.rgbaString;
-    }
-    swatch02.style.backgroundColor = color.rgbaString;
-    state.color02 = color.rgbaString;
-    display();
-  }
-});
-
-const swatch03 = document.getElementById("swatch03");
-const picker03 = new Picker({
-  parent: swatch03,
-  color: "#356969ff",
-  popup: "top",
-  alpha: false,
-  onChange: function(color) {
-    for (const item of gridItems) {
-      dropShadow.value <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow(" + dropShadow.value + "px 0" + color.hex + ")";
-    };
-    swatch03.style.backgroundColor = color.rgbaString;
-    state.color03 = color.rgbaString;
-    display();
-  }
-});
-
-
-
-randomiseButton.onclick = function() {
-  if (randomColor.checked && !randomValue.checked) {
-    randomiseColors();
-  } else if (!randomColor.checked && randomValue.checked) {
-    randomiseParameters();
-  } else if (randomColor.checked && randomValue.checked) {
-    randomiseColors();
-    randomiseParameters();
-  } else {
-    return;
-  }
+function updateColor() {
+ switch (this){
+   case picker01:
+   swatch01.style.background=this.value;
+   display();
+   break;
+   case picker02:
+   swatch02.style.background=this.value;
+   display();
+   break;
+   case picker03:
+   swatch03.style.background=this.value;
+   display();
+   break;
+ }
 }
 
+const swatch01 = document.getElementById("swatch01");
+const picker01 = document.getElementById("picker01");
+
+swatch01.onclick = function(){
+  picker01.click();
+}
+
+picker01.addEventListener("change", updateColor);
+// const picker01 = new Picker({
+//   parent: swatchContainer,
+//   color: "#2197ac",
+//   popup: "top",
+//   layout: "custom",
+//   alpha: false,
+//   onChange: function(color) {
+//     patternSwatch.style.backgroundColor = color.rgbaString;
+//     swatch01.style.backgroundColor = color.rgbaString;
+//     state.color01 = color.rgbaString;
+//     display();
+//   }
+// });
+//
+const swatch02 = document.getElementById("swatch02");
+const picker02 = document.getElementById("picker02");
+swatch02.onclick = function(){
+  picker02.click();
+}
+
+picker02.addEventListener("change", updateColor);
+// const picker02 = new Picker({
+//   parent: swatch02,
+//   color: "#f45555",
+//   popup: "top",
+//   alpha: false,
+//   onChange: function(color) {
+//     for (const item of gridItems) {
+//       item.style.fill = color.rgbaString;
+//     }
+//     swatch02.style.backgroundColor = color.rgbaString;
+//     state.color02 = color.rgbaString;
+//     display();
+//   }
+// });
+//
+const swatch03 = document.getElementById("swatch03");
+const picker03 = document.getElementById("picker03");
+swatch03.onclick = function(){
+  picker03.click();
+}
+
+picker03.addEventListener("change", updateColor);
+// const picker03 = new Picker({
+//   parent: swatch03,
+//   color: "#356969",
+//   popup: "top",
+//   alpha: false,
+//   onChange: function(color) {
+//     for (const item of gridItems) {
+//       dropShadow.value <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow(" + dropShadow.value + "px 0" + color.hex + ")";
+//     };
+//     swatch03.style.backgroundColor = color.rgbaString;
+//     state.color03 = color.rgbaString;
+//     display();
+//   }
+// });
+
+
+
+// randomiseButton.onclick = function() {
+//   if (randomColor.checked && !randomValue.checked) {
+//     randomiseColors();
+//   } else if (!randomColor.checked && randomValue.checked) {
+//     randomiseParameters();
+//   } else if (randomColor.checked && randomValue.checked) {
+//     randomiseColors();
+//     randomiseParameters();
+//   } else {
+//     return;
+//   }
+// }
+const randomiseColorsButton = document.getElementById("randomiseColorsButton");
+const randomiseSlidersButton = document.getElementById("randomiseSlidersButton");
+const randomiseEverythingButton = document.getElementById("randomiseEverythingButton");
 
 function randomiseParameters() {
   dropShadow.value = Math.random() * 100;
@@ -472,6 +518,8 @@ function randomiseParameters() {
   display();
 }
 
+randomiseSlidersButton.onclick = randomiseParameters();
+
 function randomiseColors() {
   function newColor() {
     let letters = '0123456789ABCDEF'.split('');
@@ -481,14 +529,19 @@ function randomiseColors() {
     }
     return color;
   }
-
-  //setColor() is from the vanillapicker module;
-
-  picker01.setColor(newColor());
-  picker02.setColor(newColor());
-  picker03.setColor(newColor());
+  picker01.value=newColor();
+  picker02.value=newColor();
+  picker03.value=newColor();
 
   display();
+}
+
+randomiseColorsButton.addEventListener("click", randomiseColors);
+randomiseSlidersButton.addEventListener("click", randomiseParameters);
+
+randomiseEverythingButton.onclick = function randomiseEverything () {
+  randomiseColors();
+  randomiseParameters();
 }
 
 const share1 = document.getElementById("share1");
@@ -569,10 +622,14 @@ function loadState() {
   fontWeight.value = state.fontWeight;
   zoom.value = state.zoom;
   alternating.checked = state.alternating;
+  picker01.value = state.color01;
+  picker02.value = state.color02;
+  picker03.value = state.color03;
 
-  picker01.setColor(state.color01);
-  picker02.setColor(state.color02);
-  picker03.setColor(state.color03);
+
+  // picker01.setColor(state.color01);
+  // picker02.setColor(state.color02);
+  // picker03.setColor(state.color03);
 
   display();
 
@@ -586,9 +643,9 @@ let stateLibrary = [{
     "zoom": "353",
     "angle": "271",
     "alternating": true,
-    "color01": "rgba(37,158,89,1)",
-    "color02": "rgba(82,170,48,1)",
-    "color03": "rgba(198,212,36,1)"
+    "color01": "#259e59",
+    "color02": "#53aa30",
+    "color03": "#c5d424"
   },
   {
     "character": "O",
@@ -598,9 +655,9 @@ let stateLibrary = [{
     "zoom": "500",
     "angle": "143",
     "alternating": true,
-    "color01": "rgba(150,186,187,1)",
-    "color02": "rgba(75,30,40,1)",
-    "color03": "rgba(113,185,168,1)"
+    "color01": "#96babb",
+    "color02": "#491e28",
+    "color03": "#71b9a8"
   },
   {
     "character": "<",
@@ -610,9 +667,9 @@ let stateLibrary = [{
     "zoom": "188",
     "angle": "184",
     "alternating": true,
-    "color01": "rgba(140,74,74,1)",
-    "color02": "rgba(81,211,150,1)",
-    "color03": "rgba(84,119,171,1)"
+    "color01": "#8c4a4a",
+    "color02": "#51d396",
+    "color03": "#5477ab"
   },
   {
     "character": "(",
@@ -622,9 +679,9 @@ let stateLibrary = [{
     "zoom": "265",
     "angle": "180",
     "alternating": true,
-    "color01": "rgba(242,216,95,1)",
-    "color02": "rgba(178,76,129,1)",
-    "color03": "rgba(101,181,172,1)"
+    "color01": "#f2d85f",
+    "color02": "#b24c81",
+    "color03": "#65b5ac"
 },
   {
     "character": "A",
@@ -634,9 +691,9 @@ let stateLibrary = [{
     "zoom": "201",
     "angle": "0",
     "alternating": true,
-    "color01": "rgba(120,68,42,1)",
-    "color02": "rgba(172,67,130,1)",
-    "color03": "rgba(235,21,20,1)"
+    "color01": "#784404",
+    "color02": "#ac4382",
+    "color03": "#eb1514"
   },
   {
       "character": "_",
@@ -646,16 +703,15 @@ let stateLibrary = [{
       "zoom": "189",
       "angle": "102",
       "alternating": true,
-      "color01": "rgba(225,185,168,1)",
-      "color02": "rgba(251,59,139,1)",
-      "color03": "rgba(53,154,166,1)"
+      "color01": "#e1b9a8",
+      "color02": "#fb3b8b",
+      "color03": "#359aa6"
   }
 ];
 
 
 window.addEventListener("load", loadState);
 window.addEventListener("load", display);
-
 
 
 
