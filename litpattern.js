@@ -25,9 +25,9 @@ const mobileNav = document.getElementById("mobileNav");
 //UI state is recorded here:
 
 let uiState = {
-  textInputContainer: "flex",
+  textInputContainer: "none",
   slidersContainer: "none",
-  randomiseContainer: "none",
+  randomiseContainer: "flex",
   swatchContainer: "none",
   mobileNav: "flex",
   designPanel: {
