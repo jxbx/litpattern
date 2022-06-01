@@ -407,6 +407,7 @@ function display() {
 }
 
 function updateColor() {
+  // console.log("yes");
  switch (this){
    case picker01:
    swatch01.style.background=this.value;
@@ -430,7 +431,7 @@ swatch01.onclick = function(){
   picker01.click();
 }
 
-picker01.addEventListener("change", updateColor);
+picker01.addEventListener("input", updateColor);
 // const picker01 = new Picker({
 //   parent: swatchContainer,
 //   color: "#2197ac",
@@ -451,7 +452,7 @@ swatch02.onclick = function(){
   picker02.click();
 }
 
-picker02.addEventListener("change", updateColor);
+picker02.addEventListener("input", updateColor);
 // const picker02 = new Picker({
 //   parent: swatch02,
 //   color: "#f45555",
@@ -473,7 +474,7 @@ swatch03.onclick = function(){
   picker03.click();
 }
 
-picker03.addEventListener("change", updateColor);
+picker03.addEventListener("input", updateColor);
 // const picker03 = new Picker({
 //   parent: swatch03,
 //   color: "#356969",
@@ -688,18 +689,18 @@ let stateLibrary = [{
     "color02": "#b24c81",
     "color03": "#65b5ac"
 },
-  {
-    "character": "A",
-    "fontWeight": "100",
-    "fontSize": "192",
-    "dropShadow": "75",
-    "zoom": "201",
-    "angle": "0",
+{
+    "character": "%",
+    "fontWeight": "900",
+    "fontSize": "186",
+    "dropShadow": "0",
+    "zoom": "202",
+    "angle": "50",
     "alternating": true,
-    "color01": "#784404",
-    "color02": "#ac4382",
-    "color03": "#eb1514"
-  },
+    "color01": "#d34c45",
+    "color02": "#8084ff",
+    "color03": "#24a2c4"
+},
   {
       "character": "_",
       "fontWeight": "569",
@@ -711,7 +712,55 @@ let stateLibrary = [{
       "color01": "#e1b9a8",
       "color02": "#fb3b8b",
       "color03": "#359aa6"
-  }
+  },
+  {
+    "character": "=E",
+    "fontWeight": "167",
+    "fontSize": "198",
+    "dropShadow": "12",
+    "zoom": "233",
+    "angle": "254",
+    "alternating": true,
+    "color01": "#a292c7",
+    "color02": "#ffac4d",
+    "color03": "#d52bd8"
+},
+{
+    "character": "$",
+    "fontWeight": "126",
+    "fontSize": "252",
+    "dropShadow": "16",
+    "zoom": "353",
+    "angle": "69",
+    "alternating": false,
+    "color01": "#0b93a8",
+    "color02": "#0ccf74",
+    "color03": "#e169ac"
+},
+{
+    "character": "S",
+    "fontWeight": "825",
+    "fontSize": "238",
+    "dropShadow": "18",
+    "zoom": "217",
+    "angle": "131",
+    "alternating": false,
+    "color01": "#dacb2b",
+    "color02": "#823f88",
+    "color03": "#c0ac98"
+},
+{
+    "character": "Z",
+    "fontWeight": "217",
+    "fontSize": "315",
+    "dropShadow": "55",
+    "zoom": "123",
+    "angle": "0",
+    "alternating": false,
+    "color01": "#6fc3e4",
+    "color02": "#f5e3ce",
+    "color03": "#e5e048"
+}
 ];
 
 
