@@ -766,7 +766,7 @@ let stateLibrary = [{
 
 window.addEventListener("load", loadState);
 window.addEventListener("load", display);
-
+window.addEventListener("load", renderUI);
 
 
 

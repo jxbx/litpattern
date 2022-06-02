@@ -130,6 +130,11 @@ svg .st0 {
   text-underline-offset: 2px;
 }
 
+#mobileRandom {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 #designPanel {
   justify-content: space-evenly;
   height: 80%;
