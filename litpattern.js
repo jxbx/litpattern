@@ -1,26 +1,57 @@
+//DOM ELEMENTS
+
+//Main navigation
 const designButton = document.getElementById("designButton");
 const outputButton = document.getElementById("outputButton");
 const aboutButton = document.getElementById("aboutButton");
+//Content panels
 const designPanel = document.getElementById("designPanel");
 const outputPanel = document.getElementById("outputPanel");
 const aboutPanel = document.getElementById("aboutPanel");
-const alternating = document.getElementById("alternating");
-const randomColor = document.getElementById("randomColor");
-const randomValue = document.getElementById("randomValue");
-const randomiseButton = document.getElementById("randomiseButton");
-const mobileText = document.getElementById("mobileText");
-const mobileAdjust = document.getElementById("mobileAdjust");
-const mobileRandom = document.getElementById("mobileRandom");
-const mobileColor = document.getElementById("mobileColor");
+//Design adjust containers
 const randomiseContainer = document.getElementById("randomiseContainer");
 const swatchContainer = document.getElementById("swatchContainer");
 const slidersContainer = document.getElementById("slidersContainer");
 const textInputContainer = document.getElementById("textInputContainer");
+//Mobile nav
 const mobileNav = document.getElementById("mobileNav");
+const mobileText = document.getElementById("mobileText");
+const mobileAdjust = document.getElementById("mobileAdjust");
+const mobileRandom = document.getElementById("mobileRandom");
+const mobileColor = document.getElementById("mobileColor");
+//"share" buttons
+const share1 = document.getElementById("share1");
+const shareMobile = document.getElementById("shareMobile");
+// buttons, toggles and inputs for design
+const alternating = document.getElementById("alternating");
+const randomiseColorsButton = document.getElementById("randomiseColorsButton");
+const randomiseSlidersButton = document.getElementById("randomiseSlidersButton");
+const randomiseEverythingButton = document.getElementById("randomiseEverythingButton");
+const swatch01 = document.getElementById("swatch01");
+const picker01 = document.getElementById("picker01");
+const swatch02 = document.getElementById("swatch02");
+const picker02 = document.getElementById("picker02");
+const swatch03 = document.getElementById("swatch03");
+const picker03 = document.getElementById("picker03");
+const characterInput = document.getElementById("characterInput");
+//sliders
+const angle = document.getElementById("angle");
+const angleValue = document.getElementById("angleValue");
+const dropShadow = document.getElementById("dropShadow");
+const dropShadowValue = document.getElementById("dropShadowValue");
+const fontSize = document.getElementById("fontSize");
+const fontSizeValue = document.getElementById("fontSizeValue");
+const zoom = document.getElementById("zoom");
+const zoomValue = document.getElementById("zoomValue");
+const fontWeight = document.getElementById("fontWeight");
+const fontWeightValue = document.getElementById("fontWeightValue");
+//output buttons
+const downloadSVGfile = document.getElementById("downloadSVGfile");
+const copyCSS = document.getElementById("copyCSS")
+//pattern swatch (hidden)
+const patternContainer = document.getElementById("patternContainer");
+const patternSwatch = document.getElementById("patternSwatch");
 
-
-
-//USER INTERFACE
 
 //UI state is recorded here:
 
@@ -42,30 +73,11 @@ let uiState = {
     display: "none",
     selected: "false"
   }
-
 }
 
-// uiVisibility = true;
+//UI functions
 
-//toggle randomise button:
-
-// function updateRandomiseButton() {
-//   if (randomColor.checked === false && randomValue.checked === false) {
-//     randomiseButton.innerText = "Randomise";
-//     randomiseButton.disabled = true;
-//   } else if (randomColor.checked && randomValue.checked === false) {
-//     randomiseButton.innerText = "Randomise colours";
-//     randomiseButton.disabled = false;
-//   } else if (randomColor.checked === false && randomValue.checked) {
-//     randomiseButton.innerText = "Randomise sliders";
-//     randomiseButton.disabled = false;
-//   } else {
-//     randomiseButton.innerText = "Randomise everything!";
-//     randomiseButton.disabled = false;
-//   }
-// }
-
-//controls for #mainSelector component
+//controls main navigation:
 
 function showPanel(input) {
 
@@ -91,7 +103,6 @@ function showPanel(input) {
       uiState["outputPanel"].selected = "false";
       renderUI();
       break;
-
     case outputButton:
       if (breakpoint.matches && uiState["outputPanel"].display === "flex") {
         uiState["outputPanel"].display = "none";
@@ -106,7 +117,6 @@ function showPanel(input) {
       uiState["outputPanel"].selected = "true";
       renderUI();
       break;
-
     case aboutButton:
       if (breakpoint.matches && uiState["aboutPanel"].display === "flex") {
         uiState["aboutPanel"].display = "none";
@@ -124,7 +134,7 @@ function showPanel(input) {
   }
 }
 
-//controls for #mobileNav component:
+//controls #mobileNav component:
 
 function mobileSelect(input) {
   let elements = document.getElementsByClassName("mobileButton")
@@ -132,7 +142,6 @@ function mobileSelect(input) {
     element.style.textDecoration = "none";
     element.style.fontWeight = "normal"
   }
-
   uiState["designPanel"].display = "flex";
   uiState["mobileNav"] = "flex";
   input.style.textDecoration = "underline";
@@ -168,10 +177,13 @@ function mobileSelect(input) {
       renderUI();
       break;
   }
-
 }
 
-//re-renderUI when breakpoint is triggered:
+//re-renders UI when breakpoint is triggered:
+
+let breakpoint = window.matchMedia("(max-width: 600px)")
+breakpoint.addEventListener("change", updateUIonBreakpoint);
+
 
 function updateUIonBreakpoint() {
   if (breakpoint.matches) {
@@ -184,13 +196,11 @@ function updateUIonBreakpoint() {
     uiState["designPanel"].selected === "true" ? uiState["designPanel"].display = "flex" : uiState["designPanel"].display = "none";
     uiState["outputPanel"].selected === "true" ? uiState["outputPanel"].display = "flex" : uiState["outputPanel"].display = "none";
     uiState["aboutPanel"].selected === "true" ? uiState["aboutPanel"].display = "flex" : uiState["aboutPanel"].display = "none";
-
   }
   renderUI();
-
 }
 
-//render UI based on uiState:
+//renders UI based on uiState:
 
 function renderUI() {
   if (!breakpoint.matches) {
@@ -210,89 +220,36 @@ function renderUI() {
   mobileNav.style.display = uiState["mobileNav"];
 }
 
-// Hide UI by tapping background
+//Design parameters
 
-// function hideUI(input) {
-//   let target = input.target;
-//   if (target != document.body || !breakpoint.matches) {
-//     return
-//   } else {
-//     if (uiState.uiVisibility === true) {
-//       designPanel.style.display = "none";
-//       outputPanel.style.display = "none";
-//       aboutPanel.style.display = "none";
-//       mobileNav.style.display = "none";
-//       uiVisibility = false;
-//     } else {
-//       uiVisibility = true;
-//       renderUI();
-//     }
-//   }
-// }
+//Re-renders pattern every time a design input is detected:
 
-let breakpoint = window.matchMedia("(max-width: 600px)")
-breakpoint.addEventListener("change", updateUIonBreakpoint);
-
-window.onload = renderUI;
-// document.body.addEventListener("click", (evt) => {
-//   hideUI(evt)
-// });
-
-
-
-
-
-
-
-
-
-//DOM elements
-
-const angle = document.getElementById("angle");
-const angleValue = document.getElementById("angleValue");
 angle.addEventListener("input", display);
-
-const dropShadow = document.getElementById("dropShadow");
-const dropShadowValue = document.getElementById("dropShadowValue");
 dropShadow.addEventListener("input", display);
-
-const fontSize = document.getElementById("fontSize");
-const fontSizeValue = document.getElementById("fontSizeValue");
 fontSize.addEventListener("input", display);
-
-const fontWeight = document.getElementById("fontWeight");
-const fontWeightValue = document.getElementById("fontWeightValue");
 fontWeight.addEventListener("input", display);
-
-const zoom = document.getElementById("zoom");
-const zoomValue = document.getElementById("zoomValue");
 zoom.addEventListener("input", display);
 
-const characterInput = document.getElementById("characterInput");
-characterInput.addEventListener("input", function (event) {
-    event.target.value = event.target.value.substring(0, 2);
-    display();
+//limits character input to 2 (required for mobile to prevent predictive text from overriding maxlength);
+
+characterInput.addEventListener("input", function(event) {
+  event.target.value = event.target.value.substring(0, 2);
+  display();
 });
 
-const patternContainer = document.getElementById("patternContainer");
-const patternSwatch = document.getElementById("patternSwatch");
 
+
+//PATTERN GENERATOR
+
+//controls spacing of svg pattern (adjusting this reduces how far elements can overlap and can be used to stop clipping):
+const spacing = 150;
+//holds coordinates for generating svg pattern:
+let coordinates = [];
+//selects all text elements in the svg pattern:
 const gridItems = document.getElementsByClassName("item");
 
-//Used to control spacing of svg pattern (adjusting this reduces how far elements can overlap and can be used to stop clipping)
 
-const spacing = 150;
-
-//used to generate coordinates for svg pattern:
-
-let coordinates = [];
-
-let svgReady;
-
-
-
-//pattern design saved here:
-
+//pattern parameters saved here:
 let state = {
   character: null,
   fontWeight: null,
@@ -306,8 +263,7 @@ let state = {
   color03: null,
 }
 
-//generate SVG coordinates for the text elements that make up the pattern
-
+//generate SVG coordinates for the 3x3 grid of text elements that make up the pattern:
 function generateCoordinates() {
   let min = -spacing;
   for (let y = 0; y < 3; y++) {
@@ -320,14 +276,11 @@ function generateCoordinates() {
   }
 }
 
-//Applies styles to text elements, crops out a repeating tile using viewbox, and returns an array including code for inline svg and css background;
-
+//Apply styles to text elements, crops out a repeating tile using viewbox, and return an array including code for inline svg and css background:
 function generateSvg() {
-
   while (patternSwatch.childNodes.length > 2) {
     patternSwatch.removeChild(patternSwatch.lastChild);
   }
-
   coordinates = [];
   generateCoordinates();
 
@@ -341,12 +294,10 @@ function generateSvg() {
     shape.appendChild(text);
     patternSwatch.appendChild(shape);
   }
-
   patternSwatch.style.background = state.color01;
 
   for (const item of gridItems) {
     state.dropShadow <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow(" + state.dropShadow + "px 0 " + state.color03 + ")";
-
     item.style.fontSize = state.fontSize + "px";
     item.style.fontWeight = state.fontWeight;
     item.style.fill = state.color02;
@@ -363,25 +314,19 @@ function generateSvg() {
       gridItems[i].style.transform = "rotate(" + angle.value + "deg)";
     }
   }
-
-
+  //adjust viewbox to crop down the design to the smallest repeating tile:
   patternSwatch.setAttributeNS(null, "viewBox", -spacing + " " + -spacing + " " + spacing * 2 + " " + spacing * 2);
-
-
+  //convert svg output to base64:
   let svgOutput = btoa(patternSwatch.outerHTML);
   let svgOutputArray = []
-
+  //push css and inline svg to array:
   svgOutputArray.push("background-image: url(\'data:image/svg+xml;base64," + svgOutput + "\'); background-size: " + zoom.value + "px;");
   svgOutputArray.push(svgOutput);
-
   return svgOutputArray;
 }
 
-
-//updates state, updates DOM sliders, calls generateSvg() and displays pattern as background
-
+//updates state, updates sliders, calls generateSvg() and displays pattern as background:
 function display() {
-
   dropShadowValue.innerHTML = dropShadow.value;
   fontSizeValue.innerHTML = fontSize.value;
   fontWeightValue.innerHTML = fontWeight.value;
@@ -400,113 +345,43 @@ function display() {
   state.color01 = picker01.value;
   state.color02 = picker02.value;
   state.color03 = picker03.value;
-
-  svgReady = generateSvg();
-
-  document.body.setAttribute("style", svgReady[0]);
+  document.body.setAttribute("style", generateSvg()[0]);
 }
 
+//update colour swatches based on picker:
 function updateColor() {
-  // console.log("yes");
- switch (this){
-   case picker01:
-   swatch01.style.background=this.value;
-   display();
-   break;
-   case picker02:
-   swatch02.style.background=this.value;
-   display();
-   break;
-   case picker03:
-   swatch03.style.background=this.value;
-   display();
-   break;
- }
+  switch (this) {
+    case picker01:
+      swatch01.style.background = this.value;
+      display();
+      break;
+    case picker02:
+      swatch02.style.background = this.value;
+      display();
+      break;
+    case picker03:
+      swatch03.style.background = this.value;
+      display();
+      break;
+  }
 }
 
-const swatch01 = document.getElementById("swatch01");
-const picker01 = document.getElementById("picker01");
-
-swatch01.onclick = function(){
+swatch01.onclick = function() {
   picker01.click();
 }
-
 picker01.addEventListener("input", updateColor);
-// const picker01 = new Picker({
-//   parent: swatchContainer,
-//   color: "#2197ac",
-//   popup: "top",
-//   layout: "custom",
-//   alpha: false,
-//   onChange: function(color) {
-//     patternSwatch.style.backgroundColor = color.rgbaString;
-//     swatch01.style.backgroundColor = color.rgbaString;
-//     state.color01 = color.rgbaString;
-//     display();
-//   }
-// });
-//
-const swatch02 = document.getElementById("swatch02");
-const picker02 = document.getElementById("picker02");
-swatch02.onclick = function(){
+
+swatch02.onclick = function() {
   picker02.click();
 }
-
 picker02.addEventListener("input", updateColor);
-// const picker02 = new Picker({
-//   parent: swatch02,
-//   color: "#f45555",
-//   popup: "top",
-//   alpha: false,
-//   onChange: function(color) {
-//     for (const item of gridItems) {
-//       item.style.fill = color.rgbaString;
-//     }
-//     swatch02.style.backgroundColor = color.rgbaString;
-//     state.color02 = color.rgbaString;
-//     display();
-//   }
-// });
-//
-const swatch03 = document.getElementById("swatch03");
-const picker03 = document.getElementById("picker03");
-swatch03.onclick = function(){
+
+swatch03.onclick = function() {
   picker03.click();
 }
-
 picker03.addEventListener("input", updateColor);
-// const picker03 = new Picker({
-//   parent: swatch03,
-//   color: "#356969",
-//   popup: "top",
-//   alpha: false,
-//   onChange: function(color) {
-//     for (const item of gridItems) {
-//       dropShadow.value <= 0 ? item.style.filter = null : item.style.filter = "drop-shadow(" + dropShadow.value + "px 0" + color.hex + ")";
-//     };
-//     swatch03.style.backgroundColor = color.rgbaString;
-//     state.color03 = color.rgbaString;
-//     display();
-//   }
-// });
 
-
-
-// randomiseButton.onclick = function() {
-//   if (randomColor.checked && !randomValue.checked) {
-//     randomiseColors();
-//   } else if (!randomColor.checked && randomValue.checked) {
-//     randomiseParameters();
-//   } else if (randomColor.checked && randomValue.checked) {
-//     randomiseColors();
-//     randomiseParameters();
-//   } else {
-//     return;
-//   }
-// }
-const randomiseColorsButton = document.getElementById("randomiseColorsButton");
-const randomiseSlidersButton = document.getElementById("randomiseSlidersButton");
-const randomiseEverythingButton = document.getElementById("randomiseEverythingButton");
+//Randomise functions:
 
 function randomiseParameters() {
   dropShadow.value = Math.random() * 100;
@@ -524,8 +399,6 @@ function randomiseParameters() {
   display();
 }
 
-randomiseSlidersButton.onclick = randomiseParameters();
-
 function randomiseColors() {
   function newColor() {
     let letters = '0123456789ABCDEF'.split('');
@@ -535,37 +408,34 @@ function randomiseColors() {
     }
     return color;
   }
-  picker01.value=newColor();
-  picker02.value=newColor();
-  picker03.value=newColor();
-
+  picker01.value = newColor();
+  picker02.value = newColor();
+  picker03.value = newColor();
   display();
 }
 
 randomiseColorsButton.addEventListener("click", randomiseColors);
 randomiseSlidersButton.addEventListener("click", randomiseParameters);
-
-randomiseEverythingButton.onclick = function randomiseEverything () {
+randomiseEverythingButton.onclick = function randomiseEverything() {
   randomiseColors();
   randomiseParameters();
 }
 
-const share1 = document.getElementById("share1");
-const shareMobile = document.getElementById("shareMobile");
 
-
+//copies string to clipboard and updates UI to display "URL copied"
 
 function updateURL() {
-
   let button = this;
-  let newState =  encodeURIComponent(JSON.stringify(state));
+  let newState = encodeURIComponent(JSON.stringify(state));
   window.location.hash = newState;
   navigator.clipboard.writeText(window.location.href)
-    .then(()=>{
+    .then(() => {
       button.innerText = "URL copied";
-      setTimeout(function(){ button.innerText="Share design ↗"}, 1000);
+      setTimeout(function() {
+        button.innerText = "Share design ↗"
+      }, 1000);
     })
-    .catch(()=>{
+    .catch(() => {
       alert("error");
     })
 }
@@ -573,7 +443,7 @@ function updateURL() {
 share1.addEventListener("click", updateURL);
 shareMobile.addEventListener("click", updateURL);
 
-const downloadSVGfile = document.getElementById("downloadSVGfile");
+//download SVG file:
 downloadSVGfile.onclick = function() {
   const blob = new Blob([patternContainer.innerHTML], {
     type: "image/svg+xml"
@@ -587,37 +457,30 @@ downloadSVGfile.onclick = function() {
   document.body.removeChild(link);
   setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
   downloadSVGfile.innerText = "downloading";
-  setTimeout(function(){downloadSVGfile.innerText="Download SVG ↓"}, 1000);
+  setTimeout(function() {
+    downloadSVGfile.innerText = "Download SVG ↓"
+  }, 1000);
 }
 
-const copyCSS = document.getElementById("copyCSS")
+//generate CSS:
 copyCSS.onclick = function() {
   navigator.clipboard.writeText(svgReady[0])
     .then(() => {
       copyCSS.innerText = "CSS copied";
-      setTimeout(function(){copyCSS.innerText="Copy CSS { }"}, 1000);
+      setTimeout(function() {
+        copyCSS.innerText = "Copy CSS { }"
+      }, 1000);
     })
     .catch(() => {
       alert("error");
     })
 }
 
-// const copySVGinline = document.getElementById("copySVGinline")
-// copySVGinline.onclick = function () {
-//   navigator.clipboard.writeText(svgReady[1])
-//   .then(()=>{
-//     alert("CSS copied to clipboard");
-//   })
-//   .catch(()=>{
-//     alert("error");
-//   })
-// }
-
-
+//load pattern state from state object and re-render:
 function loadState() {
   let string = window.location.hash.slice(1);
   if (string.length <= 0) {
-    state = stateLibrary[Math.floor(Math.random() * stateLibrary.length)];
+    state = designLibrary[Math.floor(Math.random() * designLibrary.length)];
   } else {
     state = JSON.parse(decodeURIComponent(string));
   }
@@ -631,143 +494,11 @@ function loadState() {
   picker01.value = state.color01;
   picker02.value = state.color02;
   picker03.value = state.color03;
-
-
-  // picker01.setColor(state.color01);
-  // picker02.setColor(state.color02);
-  // picker03.setColor(state.color03);
-
   display();
-
 }
 
-let stateLibrary = [{
-    "character": ":",
-    "fontWeight": "440",
-    "fontSize": "172",
-    "dropShadow": "18",
-    "zoom": "353",
-    "angle": "271",
-    "alternating": true,
-    "color01": "#259e59",
-    "color02": "#53aa30",
-    "color03": "#c5d424"
-  },
-  {
-    "character": "O",
-    "fontWeight": "900",
-    "fontSize": "219",
-    "dropShadow": "0",
-    "zoom": "500",
-    "angle": "143",
-    "alternating": true,
-    "color01": "#96babb",
-    "color02": "#491e28",
-    "color03": "#71b9a8"
-  },
-  {
-    "character": "<",
-    "fontWeight": "100",
-    "fontSize": "250",
-    "dropShadow": "43",
-    "zoom": "188",
-    "angle": "184",
-    "alternating": true,
-    "color01": "#8c4a4a",
-    "color02": "#51d396",
-    "color03": "#5477ab"
-  },
-  {
-    "character": "(",
-    "fontWeight": "432",
-    "fontSize": "210",
-    "dropShadow": "23",
-    "zoom": "265",
-    "angle": "180",
-    "alternating": true,
-    "color01": "#f2d85f",
-    "color02": "#b24c81",
-    "color03": "#65b5ac"
-},
-{
-    "character": "%",
-    "fontWeight": "900",
-    "fontSize": "186",
-    "dropShadow": "0",
-    "zoom": "202",
-    "angle": "50",
-    "alternating": true,
-    "color01": "#d34c45",
-    "color02": "#8084ff",
-    "color03": "#24a2c4"
-},
-  {
-      "character": "_",
-      "fontWeight": "569",
-      "fontSize": "156",
-      "dropShadow": "75",
-      "zoom": "189",
-      "angle": "102",
-      "alternating": true,
-      "color01": "#e1b9a8",
-      "color02": "#fb3b8b",
-      "color03": "#359aa6"
-  },
-  {
-    "character": "=E",
-    "fontWeight": "167",
-    "fontSize": "198",
-    "dropShadow": "12",
-    "zoom": "233",
-    "angle": "254",
-    "alternating": true,
-    "color01": "#a292c7",
-    "color02": "#ffac4d",
-    "color03": "#d52bd8"
-},
-{
-    "character": "$",
-    "fontWeight": "126",
-    "fontSize": "252",
-    "dropShadow": "16",
-    "zoom": "353",
-    "angle": "69",
-    "alternating": false,
-    "color01": "#0b93a8",
-    "color02": "#0ccf74",
-    "color03": "#e169ac"
-},
-{
-    "character": "S",
-    "fontWeight": "825",
-    "fontSize": "238",
-    "dropShadow": "18",
-    "zoom": "217",
-    "angle": "131",
-    "alternating": false,
-    "color01": "#dacb2b",
-    "color02": "#823f88",
-    "color03": "#c0ac98"
-},
-{
-    "character": "Z",
-    "fontWeight": "217",
-    "fontSize": "315",
-    "dropShadow": "55",
-    "zoom": "123",
-    "angle": "0",
-    "alternating": false,
-    "color01": "#6fc3e4",
-    "color02": "#f5e3ce",
-    "color03": "#e5e048"
-}
-];
-
-
+//initialisation
 window.addEventListener("load", loadState);
 window.addEventListener("load", display);
 window.addEventListener("load", renderUI);
-
-
-
 alternating.addEventListener("change", display);
