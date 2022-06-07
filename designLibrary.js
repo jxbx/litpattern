@@ -119,5 +119,17 @@ let designLibrary = [{
     "color01": "#6fc3e4",
     "color02": "#f5e3ce",
     "color03": "#e5e048"
-  }
+  },
+  {
+    "character": "=",
+    "fontWeight": "485",
+    "fontSize": "161",
+    "dropShadow": "34",
+    "zoom": "434",
+    "angle": "245",
+    "alternating": true,
+    "color01": "#a9751d",
+    "color02": "#f398c2",
+    "color03": "#292e47"
+}
 ];
