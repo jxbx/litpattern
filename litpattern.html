@@ -6,15 +6,14 @@
   <meta name="viewport" content="width=device-width">
   <title>LITPATTERN | Type-based pattern generator</title>
   <link rel="stylesheet" href="./litpattern.css" />
+  <link rel="icon" type="image/x-icon" href="../jxbx.github.io/images/favicons/litpattern.png">
   <script src="./litpattern.js" defer></script>
   <script src="./designLibrary.js" defer></script>
-  <script src="https://unpkg.com/vanilla-picker@2"></script>
 </head>
 
 <body>
 
   <!-- Pattern generating component (hidden) -->
-
 
   <div id="patternContainer">
     <svg id="patternSwatch" viewbox="-300 -300 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -131,20 +130,15 @@
 
 
       <div id="swatchContainer">
-        <!-- <div class="swatch" id="swatch01" tabindex="0">
-        </div>
-        <div class="swatch" id="swatch02" tabindex="0">
-        </div>
-        <div class="swatch" id="swatch03" tabindex="0">
-        </div> -->
+
         <div class="colorInput"><input type="color" id="picker01">
-          <div class="swatch" id="swatch01"></div>
+          <div class="swatch" id="swatch01" tabindex="0"></div>
         </div>
         <div class="colorInput"><input type="color" id="picker02">
-          <div class="swatch" id="swatch02"></div>
+          <div class="swatch" id="swatch02" tabindex="0"></div>
         </div>
         <div class="colorInput"><input type="color" id="picker03">
-          <div class="swatch" id="swatch03"></div>
+          <div class="swatch" id="swatch03" tabindex="0"></div>
         </div>
       </div>
 
@@ -173,7 +167,11 @@
     </div>
 
     <div id="aboutPanel">
-      Content to be added!
+      <p>Use LITPATTERN to make cool patterns based on text characters! Create new designs instantly using the randomiser buttons or fine tune your work using the adjustment panel.</p>
+      <p>Export your pattern as a CSS background or download the SVG file to edit it in your favourite vector graphics program.</p>
+      <p>I'm constantly updating LITPATTERN with new features. Find out more below:</p>
+      <a href="#">PROJECT NOTES</a>
+      <a href="https://github.com/jxbx/litpattern/">GITHUB</a>
     </div>
 
     <button id="shareMobile">Share design ↗</button>

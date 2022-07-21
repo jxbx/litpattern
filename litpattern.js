@@ -243,8 +243,23 @@ characterInput.addEventListener("input", function(event) {
 
 //controls spacing of svg pattern (adjusting this reduces how far elements can overlap and can be used to stop clipping):
 const spacing = 150;
-//holds coordinates for generating svg pattern:
-let coordinates = [];
+//function for generating coordinates for svg elements in grid
+function getCoordinates () {
+  let result = [];
+  let min = -spacing;
+  for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < 3; x++) {
+      let item = [];
+      item.push(min + spacing * x);
+      item.push(min+15 + spacing * y); // +15 corrects a slight misalignment in expected positioning
+      result.push(item);
+    }
+  }
+  return result;
+}
+//holds coordinates for svg pattern elements
+let coordinates = getCoordinates();
+
 //selects all text elements in the svg pattern:
 const gridItems = document.getElementsByClassName("item");
 
@@ -264,25 +279,12 @@ let state = {
 }
 
 //generate SVG coordinates for the 3x3 grid of text elements that make up the pattern:
-function generateCoordinates() {
-  let min = -spacing;
-  for (let y = 0; y < 3; y++) {
-    for (let x = 0; x < 3; x++) {
-      let item = [];
-      item.push(min + spacing * x);
-      item.push(min + spacing * y);
-      coordinates.push(item);
-    }
-  }
-}
 
 //Apply styles to text elements, crops out a repeating tile using viewbox, and return an array including code for inline svg and css background:
 function generateSvg() {
   while (patternSwatch.childNodes.length > 2) {
     patternSwatch.removeChild(patternSwatch.lastChild);
   }
-  coordinates = [];
-  generateCoordinates();
 
   for (let i = 0; i < 9; i++) {
     const shape = document.createElementNS('http://www.w3.org/2000/svg', "text");
@@ -464,7 +466,7 @@ downloadSVGfile.onclick = function() {
 
 //generate CSS:
 copyCSS.onclick = function() {
-  navigator.clipboard.writeText(svgReady[0])
+  navigator.clipboard.writeText(generateSvg()[0])
     .then(() => {
       copyCSS.innerText = "CSS copied";
       setTimeout(function() {

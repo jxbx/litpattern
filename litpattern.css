@@ -152,6 +152,16 @@ svg .st0 {
   height: 80%;
   display: none;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#aboutPanel p {
+  padding: 0 30px 0 30px;
+}
+
+#aboutPanel a {
+  color: #cf3d82;
 }
 
 #textInputContainer {
@@ -366,7 +376,6 @@ input[type="text"] {
 @media only screen and (max-width: 600px) {
   #mobileNav {
     display: flex;
-
   }
 
   button {
@@ -404,8 +413,6 @@ input[type="text"] {
   #shareMobile {
     display: flex;
   }
-
-
 }
 
 .swatch {
