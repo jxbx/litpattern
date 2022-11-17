@@ -425,3 +425,7 @@ input[type="text"] {
 input[type="color"] {
 display: none;
 }
+
+.aboutGraphic {
+  width: 20rem;
+}
